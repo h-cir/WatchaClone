@@ -1,10 +1,9 @@
 import React from "react";
-
+import BasicModal from "../components/loginmodal"
 const PostList = () => {
     return (
         <div>
-            하이
-            리퀘스트 풀 테스트
+            <BasicModal/>
         </div>
     )
 }

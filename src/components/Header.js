@@ -9,8 +9,8 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <Frame>
-        <Text margin="0" size="25px" bold>
-          WATCHA<span style={{ fontSize: "20px" }}>PEDIA</span>
+        <Text color="rgb(255, 47, 110)" margin="0" size="25px" bold>
+          WATCHA<span style={{ color:"black", fontSize: "20px" }}>PEDIA</span>
         </Text>
         <div>
           <Loginmodal />

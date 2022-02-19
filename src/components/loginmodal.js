@@ -91,6 +91,7 @@ border:none;
 :focus {
   outline:none;
 }
+caret-color: red
 `
 const LoginButton = styled.button`
 padding: 0px;

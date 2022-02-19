@@ -2,27 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { Grid, Text } from "../elementsJ";
-import BasicModal from "../components/loginmodal"
-
+import Loginmodal from "./Loginmodal"
+import Signupmodal from "./Signupmodal"
 const Header = (props) => {
-  //   const dispatch = useDispatch();
-  //   const is_token = sessionStorage.getItem("token") ? true : false;
 
-  //   if (is_token) {
-  //     return (
-  //       <React.Fragment>
-  //         <Frame>
-  //           <Text margin="0" size="25px" bold>
-  //             WATCHA<span style={{ fontSize: "20px" }}>PEDIA</span>
-  //           </Text>
-  //           <div>
-  //             <BasicModal />
-  //           </div>
-  //         </Frame>
-  //       </React.Fragment>
-  //     );
-  //   }
-  // };
   return (
     <React.Fragment>
       <Frame>
@@ -30,8 +13,8 @@ const Header = (props) => {
           WATCHA<span style={{ fontSize: "20px" }}>PEDIA</span>
         </Text>
         <div>
-          <BasicModal />
-          <BasicModal />
+          <Loginmodal />
+          <Signupmodal />
         </div>
       </Frame>
     </React.Fragment>

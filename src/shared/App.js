@@ -1,5 +1,4 @@
 import React from "react";
-import PostList from "../pages/PostList";
 import DetailPage from "../pages/DetailPage";
 import Main from "../pages/Main";
 import { Route } from "react-router-dom";
@@ -14,9 +13,8 @@ function App() {
     <React.Fragment>
       <Header></Header>
       <ConnectedRouter history={history}>
-        <Route path="/" exact component={PostList} />
-        <Route path="/detailpage" exact component={DetailPage} />
         <Route path="/" exact component={Main} />
+        <Route path="/detailpage" exact component={DetailPage} />
       </ConnectedRouter>
     </React.Fragment>
   );

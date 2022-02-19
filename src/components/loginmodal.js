@@ -4,7 +4,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 const style = {
   position: 'absolute',
   top: '50%',
@@ -18,13 +19,28 @@ const style = {
 };
 
 const BasicModal = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [userId, setuserId] = React.useState("");
+  const [password, setpassword] = React.useState("");
 
+  const changeId = (e) => {
+    setuserId(e.target.value);
+  }
+
+
+  const changePwd = (e) => {
+    setpassword(e.target.value);
+  }
+
+  const login = () => {
+    dispatch(userActions.loginDB(userId, password));
+  }
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleOpen}>로그인</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -32,12 +48,13 @@ const BasicModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <div>
+            <input value={userId} onChange={changeId} type="text" placeholder="이메일"></input>
+          </div>
+          <div>
+            <input value={password} onChange={changePwd} type="text" placeholder="비밀번호"></input>
+          </div>
+          <button onClick={login}>로그인</button>
         </Box>
       </Modal>
     </div>

@@ -9,7 +9,6 @@ const HeadDetail = (props) => {
                         <HeaderLeft />
                         <HeaderImage src={props.src}>
                             <LeftGradint />
-
                             <RightGradint />
                         </HeaderImage>
                         <HeaderRight />

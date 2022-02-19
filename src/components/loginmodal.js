@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components"
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -43,8 +44,8 @@ const BasicModal = () => {
   );
 }
 
-// const MyButton = styled(Button)`
-//   // background-color: white;
-// `;
+const MyButton = styled(Button)`
+  // background-color: white;
+`;
 
 export default BasicModal

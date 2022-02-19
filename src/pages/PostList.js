@@ -1,5 +1,5 @@
 import React from "react";
-import BasicModal from "../components/Loginmodal"
+import BasicModal from "../components/loginmodal"
 const PostList = () => {
     return (
         <div>

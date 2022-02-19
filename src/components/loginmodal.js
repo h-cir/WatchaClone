@@ -5,17 +5,22 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useDispatch } from "react-redux";
+import { Grid, Text } from "../elementsJ";
 import { actionCreators as userActions } from "../redux/modules/user";
 const style = {
+  display: "inline-block",
   position: 'absolute',
+  textAlign: "left",
+  verticalAlign: "middle",
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
+  background: "rgb(255, 255, 255)",
+  width: "375px",
+  overflow: "auto",
+  height: "auto",
+  minHeight: "540px",
+  borderRadius: "6px",
 };
 
 const BasicModal = () => {
@@ -29,7 +34,6 @@ const BasicModal = () => {
   const changeId = (e) => {
     setuserId(e.target.value);
   }
-
 
   const changePwd = (e) => {
     setpassword(e.target.value);
@@ -48,21 +52,61 @@ const BasicModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div>
-            <input value={userId} onChange={changeId} type="text" placeholder="이메일"></input>
+          <div style={{padding: "15px 0px 48px"}}>
+          <header style={{textAlign:"center", margin:"14px", overflow:"hidden"}}>
+            <Text color="rgb(255, 47, 110)" size="25px" bold style={{width:"198px", height:"38px"}}>
+            WATCHA<span style={{ fontSize: "20px", color:"black" }}>PEDIA</span>
+            </Text>
+          </header>
+          <h2 style={{fontSize: "17px", letterSpacing: "-0.5px", lineHeight:"22px", fontWeight:"700", textAlign:"center", margin:"0px 0px 20px"}}>로그인</h2>
+          <section style={{margin:"0 20px"}}>
+          <div style={{padding:"4px 0px", overflow:"hidden"}}>
+            <Input value={userId} onChange={changeId} type="text" placeholder="이메일"></Input>
           </div>
-          <div>
-            <input value={password} onChange={changePwd} type="text" placeholder="비밀번호"></input>
+          <div style={{padding:"4px 0px", overflow:"hidden"}}>
+            <Input value={password} onChange={changePwd} type="text" placeholder="비밀번호"></Input>
           </div>
-          <button onClick={login}>로그인</button>
+          <LoginButton onClick={login}>로그인</LoginButton>
+          </section>
+          
+          </div>
         </Box>
       </Modal>
     </div>
   );
 }
 
-const MyButton = styled(Button)`
-  // background-color: white;
-`;
+
+const Input = styled.input`
+display: flex;
+-webkit-box-align: center;
+align-items: center;
+background: rgb(245, 245, 245);
+box-sizing: border-box;
+width: 100%;
+height: 44px;
+padding: 0px 12px;
+border-radius: 6px;
+border:none;
+:focus {
+  outline:none;
+}
+`
+const LoginButton = styled.button`
+padding: 0px;
+border: none;
+cursor: pointer;
+background: rgb(255, 47, 110);
+color: rgb(255, 255, 255);
+text-align: center;
+font-size: 17px;
+font-weight: 400;
+letter-spacing: -0.7px;
+line-height: 22px;
+width: 100%;
+height: 44px;
+border-radius: 6px;
+margin: 16px 0px 0px;
+`
 
 export default BasicModal

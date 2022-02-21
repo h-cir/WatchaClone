@@ -1,214 +1,222 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, Text } from "../elementsJ";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MovieCard from "../components/MovieCard";
+import CommentCard from "../components/CommentCard";
+import { actionCreators as movieActions } from "../redux/modules/movie";
 
 const Main = () => {
-  const movieList = [
-    {
-      id: "",
-      movieId: "",
-      title: "언차티드",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/S52ec-Dy_DoATYuXd-ou8A.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5ETXlORFV5TmpjMk9UWTRNamMyTVRZaWZRLm1sNmozdURWMXRFU29JOVlsT2dnTDJDNl9uSkE2a2dfUUU4M3J1QXZLUnM",
-      year: "2022",
-      country: "미국",
-      star: "2.8",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "더 배트맨",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/62F_-T0pU5kQRtEuiGtFOw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5ETXdOekkwTVRrME56QXlPRFkxTVRNaWZRLnJwU3dCTnp4ZnhSU0U5ejNxWXRYMk9TY2hYMlluNEx6bnZfUFFSNmZReE0",
-      year: "2022",
-      country: "미국",
-      star: "3.0",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "작은 아씨들",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/6p9tZhTcT_C8eKX6gDipLg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM1J0ZVdKNVkyTjRhWGRyZG5OMmFqWnBiMkZ1SW4wLjEtVXQ0dGxpenZHTUtYellrcjZ5UGVnQ1I1aS1janZqQ05IWDY5VmNDTFk",
-      year: "2019",
-      country: "미국",
-      star: "4.0",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "더 룸",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/iUF8F33hOSQPop-IqDzq4Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjlxZVRKb09HaHVjSGsxWm5wcGFYZGhaSEZ1SW4wLkpMT01PbGIycUdNNnR2V19fSjJ1OG51R0xaUnhRaXN2UV9SOWhiT0stR3M",
-      year: "2019",
-      country: "프랑스",
-      star: "3.3",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "아가씨",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/ws6AA5m4nRGYO_JdXQ86dw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM0o1Ym1Gb05IRmlaRGRxYzNobWMzaDNlR1p2SW4wLmxVWGRvWGFKMUtCT1N4cV9WYm9WOHlOQzU2a09kT1RjT1NuYk5QTlJwVkU",
-      year: "2016",
-      country: "한국",
-      star: "3.8",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "해길랍",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/1ouEsjEY5q1fvWzWMQ7-QQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk1UVTNPVFV3TXpnek5EVTNNVEF5TnpVaWZRLktaWGg5X01kQ1c2aTVwV0ZqMnZXUUlBYk9STFk2dWdMQnhsR3VWUkFGazg",
-      year: "2018",
-      country: "대만",
-      star: "2.5",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "원라인",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/RBrFklst09Nha-CJV4HafQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMmxrZVc1aWRERndkSFEyYm00M2QzSjVaV2RySW4wLmhYaVduVDZJSUZwdzFUaFItOURRd09LQ3dOOXd1RXlPVUFsRzE4d1ZLZ1k",
-      year: "2016",
-      country: "한국",
-      star: "3.3",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "카센타",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/ltvpnjSmq2w8JOoBSX-Iow.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMnRwYVhwcGMzSnVkbk15YTJoblkzZHhaMmhvSW4wLkRYUjF2djlyd2FXTE8tVXNJQWt2Wkx4YU9RNzR5TThuc29Da2cyd1NkY3M",
-      year: "2019",
-      country: "한국",
-      star: "2.7",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "업",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/WT8lfYOLB7THGRrnJmuR2Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjVqWm1Gc2NqaGxOWGs1YzIxdWNuQndNVzlsSW4wLlhOdlp0V0xTSWc0RVJicl8zeF9FVEF6ZWMzZGRfYUpjT3BiMG9UdllmVjg",
-      year: "2019",
-      country: "미국",
-      star: "4.1",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "크루엘라",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/zLrqRmbDjDtpJTlHF2i4LQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk1qRXlNamt6TVRFNU5EY3hOakE1TWpFaWZRLjBoVWxTbS01V0dwd3NRQWxNMDl4TjdERUU2b2dPMjZGSHppZHdocm1XeHc",
-      year: "2021",
-      country: "미국",
-      star: "4.0",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "언차티드",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/S52ec-Dy_DoATYuXd-ou8A.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5ETXlORFV5TmpjMk9UWTRNamMyTVRZaWZRLm1sNmozdURWMXRFU29JOVlsT2dnTDJDNl9uSkE2a2dfUUU4M3J1QXZLUnM",
-      year: "2022",
-      country: "미국",
-      star: "2.8",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "더 배트맨",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/62F_-T0pU5kQRtEuiGtFOw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5ETXdOekkwTVRrME56QXlPRFkxTVRNaWZRLnJwU3dCTnp4ZnhSU0U5ejNxWXRYMk9TY2hYMlluNEx6bnZfUFFSNmZReE0",
-      year: "2022",
-      country: "미국",
-      star: "3.0",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "작은 아씨들",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/6p9tZhTcT_C8eKX6gDipLg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM1J0ZVdKNVkyTjRhWGRyZG5OMmFqWnBiMkZ1SW4wLjEtVXQ0dGxpenZHTUtYellrcjZ5UGVnQ1I1aS1janZqQ05IWDY5VmNDTFk",
-      year: "2019",
-      country: "미국",
-      star: "4.0",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "더 룸",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/iUF8F33hOSQPop-IqDzq4Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjlxZVRKb09HaHVjSGsxWm5wcGFYZGhaSEZ1SW4wLkpMT01PbGIycUdNNnR2V19fSjJ1OG51R0xaUnhRaXN2UV9SOWhiT0stR3M",
-      year: "2019",
-      country: "프랑스",
-      star: "3.3",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "아가씨",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/ws6AA5m4nRGYO_JdXQ86dw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM0o1Ym1Gb05IRmlaRGRxYzNobWMzaDNlR1p2SW4wLmxVWGRvWGFKMUtCT1N4cV9WYm9WOHlOQzU2a09kT1RjT1NuYk5QTlJwVkU",
-      year: "2016",
-      country: "한국",
-      star: "3.8",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "해길랍",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/1ouEsjEY5q1fvWzWMQ7-QQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk1UVTNPVFV3TXpnek5EVTNNVEF5TnpVaWZRLktaWGg5X01kQ1c2aTVwV0ZqMnZXUUlBYk9STFk2dWdMQnhsR3VWUkFGazg",
-      year: "2018",
-      country: "대만",
-      star: "2.5",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "원라인",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/RBrFklst09Nha-CJV4HafQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMmxrZVc1aWRERndkSFEyYm00M2QzSjVaV2RySW4wLmhYaVduVDZJSUZwdzFUaFItOURRd09LQ3dOOXd1RXlPVUFsRzE4d1ZLZ1k",
-      year: "2016",
-      country: "한국",
-      star: "3.3",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "카센타",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/ltvpnjSmq2w8JOoBSX-Iow.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMnRwYVhwcGMzSnVkbk15YTJoblkzZHhaMmhvSW4wLkRYUjF2djlyd2FXTE8tVXNJQWt2Wkx4YU9RNzR5TThuc29Da2cyd1NkY3M",
-      year: "2019",
-      country: "한국",
-      star: "2.7",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "업",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/WT8lfYOLB7THGRrnJmuR2Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjVqWm1Gc2NqaGxOWGs1YzIxdWNuQndNVzlsSW4wLlhOdlp0V0xTSWc0RVJicl8zeF9FVEF6ZWMzZGRfYUpjT3BiMG9UdllmVjg",
-      year: "2019",
-      country: "미국",
-      star: "4.1",
-    },
-    {
-      id: "",
-      movieId: "",
-      title: "크루엘라",
-      posterUrl:
-        "https://an2-img.amz.wtchn.net/image/v2/zLrqRmbDjDtpJTlHF2i4LQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk1qRXlNamt6TVRFNU5EY3hOakE1TWpFaWZRLjBoVWxTbS01V0dwd3NRQWxNMDl4TjdERUU2b2dPMjZGSHppZHdocm1XeHc",
-      year: "2021",
-      country: "미국",
-      star: "4.0",
-    },
-  ];
+  const dispatch = useDispatch();
+  const movieList = useSelector((state) => state.movie.list);
+  React.useEffect(() => {
+    dispatch(movieActions.getMovieListDB());
+  }, []);
+  // const movieList = [
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "언차티드",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/S52ec-Dy_DoATYuXd-ou8A.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5ETXlORFV5TmpjMk9UWTRNamMyTVRZaWZRLm1sNmozdURWMXRFU29JOVlsT2dnTDJDNl9uSkE2a2dfUUU4M3J1QXZLUnM",
+  //     year: "2022",
+  //     country: "미국",
+  //     star: "2.8",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "더 배트맨",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/62F_-T0pU5kQRtEuiGtFOw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5ETXdOekkwTVRrME56QXlPRFkxTVRNaWZRLnJwU3dCTnp4ZnhSU0U5ejNxWXRYMk9TY2hYMlluNEx6bnZfUFFSNmZReE0",
+  //     year: "2022",
+  //     country: "미국",
+  //     star: "3.0",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "작은 아씨들",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/6p9tZhTcT_C8eKX6gDipLg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM1J0ZVdKNVkyTjRhWGRyZG5OMmFqWnBiMkZ1SW4wLjEtVXQ0dGxpenZHTUtYellrcjZ5UGVnQ1I1aS1janZqQ05IWDY5VmNDTFk",
+  //     year: "2019",
+  //     country: "미국",
+  //     star: "4.0",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "더 룸",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/iUF8F33hOSQPop-IqDzq4Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjlxZVRKb09HaHVjSGsxWm5wcGFYZGhaSEZ1SW4wLkpMT01PbGIycUdNNnR2V19fSjJ1OG51R0xaUnhRaXN2UV9SOWhiT0stR3M",
+  //     year: "2019",
+  //     country: "프랑스",
+  //     star: "3.3",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "아가씨",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/ws6AA5m4nRGYO_JdXQ86dw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM0o1Ym1Gb05IRmlaRGRxYzNobWMzaDNlR1p2SW4wLmxVWGRvWGFKMUtCT1N4cV9WYm9WOHlOQzU2a09kT1RjT1NuYk5QTlJwVkU",
+  //     year: "2016",
+  //     country: "한국",
+  //     star: "3.8",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "해길랍",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/1ouEsjEY5q1fvWzWMQ7-QQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk1UVTNPVFV3TXpnek5EVTNNVEF5TnpVaWZRLktaWGg5X01kQ1c2aTVwV0ZqMnZXUUlBYk9STFk2dWdMQnhsR3VWUkFGazg",
+  //     year: "2018",
+  //     country: "대만",
+  //     star: "2.5",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "원라인",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/RBrFklst09Nha-CJV4HafQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMmxrZVc1aWRERndkSFEyYm00M2QzSjVaV2RySW4wLmhYaVduVDZJSUZwdzFUaFItOURRd09LQ3dOOXd1RXlPVUFsRzE4d1ZLZ1k",
+  //     year: "2016",
+  //     country: "한국",
+  //     star: "3.3",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "카센타",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/ltvpnjSmq2w8JOoBSX-Iow.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMnRwYVhwcGMzSnVkbk15YTJoblkzZHhaMmhvSW4wLkRYUjF2djlyd2FXTE8tVXNJQWt2Wkx4YU9RNzR5TThuc29Da2cyd1NkY3M",
+  //     year: "2019",
+  //     country: "한국",
+  //     star: "2.7",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "업",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/WT8lfYOLB7THGRrnJmuR2Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjVqWm1Gc2NqaGxOWGs1YzIxdWNuQndNVzlsSW4wLlhOdlp0V0xTSWc0RVJicl8zeF9FVEF6ZWMzZGRfYUpjT3BiMG9UdllmVjg",
+  //     year: "2019",
+  //     country: "미국",
+  //     star: "4.1",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "크루엘라",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/zLrqRmbDjDtpJTlHF2i4LQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk1qRXlNamt6TVRFNU5EY3hOakE1TWpFaWZRLjBoVWxTbS01V0dwd3NRQWxNMDl4TjdERUU2b2dPMjZGSHppZHdocm1XeHc",
+  //     year: "2021",
+  //     country: "미국",
+  //     star: "4.0",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "언차티드",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/S52ec-Dy_DoATYuXd-ou8A.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5ETXlORFV5TmpjMk9UWTRNamMyTVRZaWZRLm1sNmozdURWMXRFU29JOVlsT2dnTDJDNl9uSkE2a2dfUUU4M3J1QXZLUnM",
+  //     year: "2022",
+  //     country: "미국",
+  //     star: "2.8",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "더 배트맨",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/62F_-T0pU5kQRtEuiGtFOw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5ETXdOekkwTVRrME56QXlPRFkxTVRNaWZRLnJwU3dCTnp4ZnhSU0U5ejNxWXRYMk9TY2hYMlluNEx6bnZfUFFSNmZReE0",
+  //     year: "2022",
+  //     country: "미국",
+  //     star: "3.0",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "작은 아씨들",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/6p9tZhTcT_C8eKX6gDipLg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM1J0ZVdKNVkyTjRhWGRyZG5OMmFqWnBiMkZ1SW4wLjEtVXQ0dGxpenZHTUtYellrcjZ5UGVnQ1I1aS1janZqQ05IWDY5VmNDTFk",
+  //     year: "2019",
+  //     country: "미국",
+  //     star: "4.0",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "더 룸",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/iUF8F33hOSQPop-IqDzq4Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjlxZVRKb09HaHVjSGsxWm5wcGFYZGhaSEZ1SW4wLkpMT01PbGIycUdNNnR2V19fSjJ1OG51R0xaUnhRaXN2UV9SOWhiT0stR3M",
+  //     year: "2019",
+  //     country: "프랑스",
+  //     star: "3.3",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "아가씨",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/ws6AA5m4nRGYO_JdXQ86dw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMM0o1Ym1Gb05IRmlaRGRxYzNobWMzaDNlR1p2SW4wLmxVWGRvWGFKMUtCT1N4cV9WYm9WOHlOQzU2a09kT1RjT1NuYk5QTlJwVkU",
+  //     year: "2016",
+  //     country: "한국",
+  //     star: "3.8",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "해길랍",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/1ouEsjEY5q1fvWzWMQ7-QQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk1UVTNPVFV3TXpnek5EVTNNVEF5TnpVaWZRLktaWGg5X01kQ1c2aTVwV0ZqMnZXUUlBYk9STFk2dWdMQnhsR3VWUkFGazg",
+  //     year: "2018",
+  //     country: "대만",
+  //     star: "2.5",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "원라인",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/RBrFklst09Nha-CJV4HafQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMmxrZVc1aWRERndkSFEyYm00M2QzSjVaV2RySW4wLmhYaVduVDZJSUZwdzFUaFItOURRd09LQ3dOOXd1RXlPVUFsRzE4d1ZLZ1k",
+  //     year: "2016",
+  //     country: "한국",
+  //     star: "3.3",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "카센타",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/ltvpnjSmq2w8JOoBSX-Iow.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMnRwYVhwcGMzSnVkbk15YTJoblkzZHhaMmhvSW4wLkRYUjF2djlyd2FXTE8tVXNJQWt2Wkx4YU9RNzR5TThuc29Da2cyd1NkY3M",
+  //     year: "2019",
+  //     country: "한국",
+  //     star: "2.7",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "업",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/WT8lfYOLB7THGRrnJmuR2Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXhMMjVqWm1Gc2NqaGxOWGs1YzIxdWNuQndNVzlsSW4wLlhOdlp0V0xTSWc0RVJicl8zeF9FVEF6ZWMzZGRfYUpjT3BiMG9UdllmVjg",
+  //     year: "2019",
+  //     country: "미국",
+  //     star: "4.1",
+  //   },
+  //   {
+  //     id: "",
+  //     movieId: "",
+  //     title: "크루엘라",
+  //     posterUrl:
+  //       "https://an2-img.amz.wtchn.net/image/v2/zLrqRmbDjDtpJTlHF2i4LQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk1qRXlNamt6TVRFNU5EY3hOakE1TWpFaWZRLjBoVWxTbS01V0dwd3NRQWxNMDl4TjdERUU2b2dPMjZGSHppZHdocm1XeHc",
+  //     year: "2021",
+  //     country: "미국",
+  //     star: "4.0",
+  //   },
+  // ];
   const NextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -259,6 +267,7 @@ const Main = () => {
             </Frame2>
           </Frame>
         </RankingBox>
+        <CommentCard/>
       </Section>
     </React.Fragment>
   );

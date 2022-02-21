@@ -18,12 +18,11 @@ export const getMovieListDB = () => {
     return (dispatch, getState, { history }) => {
         instance
         .get("/api/movies")
-        .then((res)=>{
-            console.log(res);
-            // dispatch(getMovieList());
+        .then((response)=>{
+            dispatch(getMovieList(response.data.movies));
         })
-        .catch((err) => {
-            console.log(err, "영화목록 가져오기 오류");
+        .catch((error) => {
+            console.log(error, "영화목록 가져오기 오류");
         })
     }
 }

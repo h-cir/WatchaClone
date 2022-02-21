@@ -154,13 +154,11 @@ const HeaderBottom = () => {
 const Bottom = styled.div`
 padding: 28px 0px 48px;
 overflow: hidden;
-display: block;
 `
 const BottomInner = styled.div`
 max-width: 976px;
 margin: 0px auto;
 display: table;
-
 `
 const BottomContent = styled.div`
 width: 640px;
@@ -179,7 +177,6 @@ border-bottom-right-radius: 6px;
 background: rgb(255, 255, 255);
 overflow: hidden;
 border-color: rgb(227, 227, 227) !important;
-display: block;
 `
 
 const BottomContentBasicInfo = styled.div`
@@ -280,6 +277,9 @@ line-height: normal;
 `
 
 const BottomSide = styled.div`
+@media only screen and (max-width: 1023px) {
+    display:none
+    }  
 width: 320px;
 padding: 0px 8px;
 display: table-cell

@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import Star from "./Star"
+import CommentModal from "./CommentModal";
+
 const HeadDetail = (props) => {
     return (
         <>
@@ -14,34 +17,43 @@ const HeadDetail = (props) => {
                         <HeaderRight />
                         <Headergradient />
                     </Header2>
-                </Header1>
 
+                    <HeaderTitlePic>
+                        <HeaderTitlePic2>
+                            <HeaderTitlePic3>
+                                <HeaderTitlePic4 src="https://an2-img.amz.wtchn.net/image/v2/PWQBMb7WWIlmH3crrJ8Qig.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1qZ3dlRFF3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5ETXlORFV5TmpjMk9UWTRNamMyTVRZaWZRLjQtQnpYVlJpRnFBajNpd29XTDBYY3lNRV90WlhSN25MVWJNWHFPTEI2OU0"></HeaderTitlePic4>
+                            </HeaderTitlePic3>
+                        </HeaderTitlePic2>
+                    </HeaderTitlePic>
+                </Header1>
                 <HeaderBottom>
                     <HeaderBottomOne>
-                        <HeaderBottomTwo>
-                            <HeaderBottomLeft src={props.src}>
-                                <Title>드라이브마이카</Title>
-                                <Detail>2021 ・ 드라마 ・ 일본</Detail>
-                                <ContentRating>평균 ★4.1 (9,644명)</ContentRating>
-                                <ConetentAction>
-                                    <ConetentActionOne>
-                                        <ConetentActionpyungga>
-                                            <ConetentActionpyunggaOne>평가하기</ConetentActionpyunggaOne>
-                                        </ConetentActionpyungga>
+                        <HeaderBottomLeft>
+                            <Title>드라이브마이카</Title>
+                            <Detail>2021 ・ 드라마 ・ 일본</Detail>
+                            <ContentRating>평균 ★4.1 (9,644명)</ContentRating>
+                            <ConetentAction>
+                                <ConetentActionOne>
+                                    <ConetentActionpyungga>
+                                        <ConetentActionpyunggaOne>평가하기</ConetentActionpyunggaOne>
+                                    </ConetentActionpyungga>
 
-                                        <ConetentActionstar>
-                                            <ConetentActionstarOne>별넣기</ConetentActionstarOne>
-                                        </ConetentActionstar>
-                                    </ConetentActionOne>
-                                    <ConetentActionTwo />
-                                    <ConetentActionThree>
-                                        <ConetentActionComment>
-                                            (아이콘)코멘트
-                                        </ConetentActionComment>
-                                    </ConetentActionThree>
-                                </ConetentAction>
-                            </HeaderBottomLeft>
-                        </HeaderBottomTwo>
+                                    <ConetentActionstar>
+                                        <ConetentActionstarOne>
+                                            <Star />
+                                        </ConetentActionstarOne>
+                                    </ConetentActionstar>
+                                </ConetentActionOne>
+
+                                <ConetentActionTwo />
+                                <ConetentActionThree>
+                                  
+                                  
+                                        <CommentModal/>
+                                  
+                                </ConetentActionThree>
+                            </ConetentAction>
+                        </HeaderBottomLeft>
                     </HeaderBottomOne>
                 </HeaderBottom>
             </HeaderSection>
@@ -80,6 +92,58 @@ const Header2 = styled.div`
     height: 100%;
     overflow: hidden;
 `
+
+const HeaderTitlePic = styled.div`
+@media only screen and (min-width: 1023px) {
+    max-width: 960px;
+    }   
+max-width: 640px;
+margin: 0 auto;
+`
+
+const HeaderTitlePic2 = styled.div`
+@media only screen and (min-width: 1023px) {
+    padding: 0 0 0 166px;
+    }   
+position: relative;
+bottom: unset;
+padding: 0 0 0 153px;
+display: flex;
+align-items: flex-end;
+`
+
+
+const HeaderTitlePic3 = styled.div`
+@media only screen and (min-width: 1023px) {
+ 
+    }   
+position: absolute;
+top: -22px;
+left: 0;
+width: 153px;
+height: 221px;
+border-width: 2px;
+box-shadow: 0 0 2px rgb(0 0 0 / 30%);
+overflow: hidden;
+display: block;
+flex-shrink: 0;
+box-sizing: border-box;
+border: solid 1px #fff;
+border-radius: 3px;
+background: #f8f8f8;
+transition: 300ms;
+`
+const HeaderTitlePic4 = styled.img`
+vertical-align: top;
+width: 100%;
+height: 100%;
+opacity: 1;
+object-fit: cover;
+transition: opacity 420ms ease 0s;
+border-style: none;
+`
+
+
 const HeaderLeft = styled.div`
      flex: 1 1 0%;
      background: rgb(20, 20, 20);
@@ -90,7 +154,7 @@ const HeaderImage = styled.div`
     position: relative;
     top: auto;
     left: auto;
-    width: 820px;
+    width: 1200px;
     height: 100%;
     filter: none;
     `
@@ -138,20 +202,22 @@ const RightGradint = styled.div`
 
 const HeaderBottom = styled.div`
     padding: 14px 16px 22px;
-    display: block;
 `
 
 const HeaderBottomOne = styled.div`
+@media only screen and (min-width: 1023px) {
+    max-width: 960px;
+    }   
     max-width: 640px;
-    display: block;
     margin: 0px auto;
     text-align: center;
 `
 
-const HeaderBottomTwo = styled.div`
-    display: block;
-`
+
 const HeaderBottomLeft = styled.div`
+@media only screen and (min-width: 1023px) {
+    margin: 0 0 0 191px;
+    }   
     text-align: left;
     margin: 0px 0px 0px 173px;
 }
@@ -223,54 +289,32 @@ margin: 3px auto 0px;
 position: relative;
 text-align: center;
 cursor: pointer;
+height: 40px;
+
 `
 const ConetentActionstarOne = styled.div`
 display: inline-block;
-position: relative;
 vertical-align: top;
-height: 40px;
-text-align: center;
-cursor: pointer;
 `
-
-
 const ConetentActionOne = styled.div`
 width: 238px;
 height: 57px;
 margin: 0px;
-display: block;
 `
 const ConetentActionTwo = styled.div`
-display: block;
 width: 1px;
 height: 100%;
 float: left;
 background: rgb(237, 237, 237);
 `
 const ConetentActionThree = styled.div`
-
-width: auto;
-padding: 0px 20px;
-margin: 7.5px -1.5px;
-display: block;
-`
-const ConetentActionComment = styled.button`
-flex-direction: row;
-font-size: 14px;
-line-height: 14px;
-width: auto;
-height: unset;
-margin: 0px 16px;
-min-width: 55px;
-background: none;
-padding: 0px;
-border: none;
-cursor: pointer;
--webkit-box-align: center;
-align-items: center;
-color: rgb(41, 42, 50);
-letter-spacing: -0.1px
-text-align: center;
-position: relative;
+@media only screen and (min-width: 1023px) {
+    padding: 0 0 0 30px;
+    margin: 0 -16px;
+    }  
+    width: auto;
+    padding: 0px 20px;
+    margin: 7.5px -1.5px;
+    
 `
 export default HeadDetail

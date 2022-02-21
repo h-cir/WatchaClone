@@ -46,7 +46,7 @@ const Signupmodal = () => {
     }
     return (
         <div>
-            <Button onClick={handleOpen}>회원가입</Button>
+            <HeaderButton onClick={handleOpen}>회원가입</HeaderButton>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -69,9 +69,55 @@ const Signupmodal = () => {
         </div>
     );
 }
-
-const MyButton = styled(Button)`
-  // background-color: white;
-`;
+const Input = styled.input`
+display: flex;
+-webkit-box-align: center;
+align-items: center;
+background: rgb(245, 245, 245);
+box-sizing: border-box;
+width: 100%;
+height: 44px;
+padding: 0px 12px;
+border-radius: 6px;
+border:none;
+:focus {
+  outline:none;
+}
+caret-color: red
+`
+const LoginButton = styled.button`
+padding: 0px;
+border: none;
+cursor: pointer;
+background: rgb(255, 47, 110);
+color: rgb(255, 255, 255);
+text-align: center;
+font-size: 17px;
+font-weight: 400;
+letter-spacing: -0.7px;
+line-height: 22px;
+width: 100%;
+height: 44px;
+border-radius: 6px;
+margin: 16px 0px 0px;
+`
+const HeaderButton = styled.button`
+    font-weight: 500;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 20px;
+    box-sizing: border-box;
+    width: auto;
+    min-width: 72px;
+    height: 32px;
+    background: transparent;
+    color: #353535;
+    font-size: 14px;
+    letter-spacing: -0.3px;
+    padding: 5px 14px 6px 14px;
+    border: 1px solid rgba(116,116,123,0.5);
+    margin: 15px 0;
+`
 
 export default Signupmodal

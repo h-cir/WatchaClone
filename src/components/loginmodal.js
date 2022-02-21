@@ -44,7 +44,7 @@ const BasicModal = () => {
   }
   return (
     <div>
-      <Button onClick={handleOpen}>로그인</Button>
+      <HeaderButton onClick={handleOpen}>로그인</HeaderButton>
       <Modal
         open={open}
         onClose={handleClose}
@@ -108,6 +108,24 @@ width: 100%;
 height: 44px;
 border-radius: 6px;
 margin: 16px 0px 0px;
+`
+const HeaderButton = styled.button`
+    font-weight: 500;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 20px;
+    box-sizing: border-box;
+    width: auto;
+    min-width: 72px;
+    height: 32px;
+    background: transparent;
+    color: #353535;
+    font-size: 14px;
+    letter-spacing: -0.3px;
+    padding: 5px 14px 6px 14px;
+    border: 1px solid rgba(116,116,123,0.5);
+    margin: 15px 0;
 `
 
 export default BasicModal

@@ -8,15 +8,19 @@ import { useDispatch } from "react-redux";
 import {actionCreators as userActions} from "../redux/modules/user";
 
 const style = {
+    display: "inline-block",
     position: 'absolute',
+    textAlign: "left",
+    verticalAlign: "middle",
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    background: "rgb(255, 255, 255)",
+    width: "375px",
+    overflow: "auto",
+    height: "auto",
+    minHeight: "540px",
+    borderRadius: "6px",
 };
 
 const Signupmodal = () => {

@@ -48,7 +48,7 @@ const HeadDetail = (props) => {
                                 <ConetentActionTwo />
                                 <ConetentActionThree>
                                   
-                                  
+                            
                                         <CommentModal/>
                                   
                                 </ConetentActionThree>

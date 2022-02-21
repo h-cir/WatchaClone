@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import Creadit from "./Creadit";
+import Sidebar from "./Sidebar";
 
 const HeaderBottom = () => {
     return (
@@ -31,53 +33,12 @@ const HeaderBottom = () => {
                                     </BottomContentSectionOneArticle>
                                 </div>
                             </div>
-                            <hr style={{ border: "0", borderBottom: "1px solid #f0f0f0", margin: "24px 0 0" }} />
+                            <hr style={{ border: "0", borderBottom: "1px solid #f0f0f0", margin: "24px 20px 0 20px" }} />
                         </div>
 
 
-                        <div style={{ padding: "8px 0px 0px" }}>
-                                <div style={{ margin: "0px 20px" }}>
-                                    <div style={{ overflow: "hidden" }}>
-                                        <BottomContentSectionTwocontent>
-                                            출연/제작
-                                        </BottomContentSectionTwocontent>
-                                    </div>
-                                </div>
-                            <BottomContentSectionTwoDiv2>
-                                <div style={{ overflow: "hidden" }}>
-                                    <div style={{ margin: "0 15px 0 25px" }}>
-                                        <BottomContentSectionTwoActorBox>
-                                            <BottomContentSectionTwoActor>
-                                                <BottomContentSectionTwoActor2>
-                                                    루벤 플레이셔 (감독)
-                                                </BottomContentSectionTwoActor2>
-                                            </BottomContentSectionTwoActor>
 
-
-                                            <BottomContentSectionTwoActor>
-                                                <BottomContentSectionTwoActor2>
-                                                    루벤 플레이셔 (감독)
-                                                </BottomContentSectionTwoActor2>
-                                            </BottomContentSectionTwoActor>
-
-                                            <BottomContentSectionTwoActor>
-                                                <BottomContentSectionTwoActor2>
-                                                    루벤 플레이셔 (감독)
-                                                </BottomContentSectionTwoActor2>
-                                            </BottomContentSectionTwoActor>
-
-
-                                        </BottomContentSectionTwoActorBox>
-                                    </div>
-                                </div>
-                            </BottomContentSectionTwoDiv2>
-                            <BottomContentSectionTwoDiv3>
-                                <hr style={{ border: "0", borderBottom: "1px solid #f0f0f0", margin: "24px 0 0" }} />
-                            </BottomContentSectionTwoDiv3>
-
-
-                        </div>
-
+                        <Creadit />
                         <div style={{ padding: "8px 0px 0px" }}>
                             <div>
                                 <div style={{ margin: "0 20px", overflow: "hidden" }}>
@@ -97,9 +58,10 @@ const HeaderBottom = () => {
                                 <div style={{ margin: "0 20px" }}>
                                     <div style={{ maxWidth: "375px", margin: "58px auto 0" }}></div>
                                 </div>
-                                <hr style={{ border: "0", borderBottom: "1px solid #f0f0f0", margin: "24px 0 0" }} />
+                                <hr style={{ border: "0", borderBottom: "1px solid #f0f0f0", margin: "24px 20px 0 20px" }} />
                             </div>
                         </div>
+
                         <div style={{ padding: "8px 0px 0px" }}>
                             <div style={{ margin: "0 20px" }}>
                                 <header style={{ overflow: "hidden" }}>
@@ -120,7 +82,6 @@ const HeaderBottom = () => {
                                                     <div style={{ flex: "1", fontSize: "17px", fontWeight: "400", letterSpacing: "-0.7px", lineHeight: "22px", overflow: "hidden" }}>
                                                         <a style={{ dispay: "flex", flex: "1", alignItems: "center", color: "#000" }}>유저닉네임</a>
                                                     </div>
-                                                    <div></div>
                                                 </div>
                                                 <div>코멘트내용</div>
                                                 <div>좋아요 이모티콘</div>
@@ -129,28 +90,35 @@ const HeaderBottom = () => {
                                         </li>
                                     </ul>
                                 </div>
-
-
                             </div>
                         </div>
                     </BottomContentLeft>
                 </BottomContent>
 
 
-
                 <BottomSide>
-                    <BottomSideTwo>
-                     
-                            <BottomGallery>사진</BottomGallery>
-                            <BottomVideo>비디오</BottomVideo>
-                      
-                    </BottomSideTwo>
+                    <BottomContentLeft>
+                        <Sidebar/>
+                    </BottomContentLeft>
                 </BottomSide>
+         
             </BottomInner>
         </Bottom>
     )
 }
 
+const BottomContentBasicInfo = styled.div`
+color: rgb(0, 0, 0);
+font-size: 19px;
+font-weight: 700;
+letter-spacing: -0.7px;
+line-height: 28px;
+margin: 8px 0px;
+margin-block-start: 0.83em;
+margin-block-end: 0.83em;
+margin-inline-start: 0px;
+margin-inline-end: 0px;
+`
 const Bottom = styled.div`
 padding: 28px 0px 48px;
 overflow: hidden;
@@ -179,18 +147,6 @@ overflow: hidden;
 border-color: rgb(227, 227, 227) !important;
 `
 
-const BottomContentBasicInfo = styled.div`
-color: rgb(0, 0, 0);
-font-size: 19px;
-font-weight: 700;
-letter-spacing: -0.7px;
-line-height: 28px;
-margin: 8px 0px;
-margin-block-start: 0.83em;
-margin-block-end: 0.83em;
-margin-inline-start: 0px;
-margin-inline-end: 0px;
-`
 
 const BottomContentSectionOneArticle = styled.div`
 font-size: 15px;
@@ -230,51 +186,6 @@ letter-spacing: -0.2px;
 line-height: 24px;
 `
 
-const BottomContentSectionTwoDiv2 = styled.div`
-position: relative;
-line-height: normal;
-transform: translate3d(0,0,0);
-font-family: RobotoInCjk, "Noto Sans KR", "Apple SD Gothic Neo", "Nanum Gothic", "Malgun Gothic", sans-serif;
-`
-const BottomContentSectionTwocontent = styled.h2`
-float: left;
-color: #000;
-font-size: 19px;
-font-weight: 700;
-letter-spacing: -0.7px;
-line-height: 28px;
-margin: 8px 0;
-`
-
-const BottomContentSectionTwoActorBox = styled.div`
-list-style: none;
-padding: 0;
-margin: 0;
-height: 228px;
-display: flex;
-align-content: flex-start;
-margin-right: -5px;
-margin-left: -5px;
-margin-top: 4px;
-margin-bottom: 16px;
-`
-const BottomContentSectionTwoActor = styled.li`
-width: 50%;
-box-sizing: border-box;
-padding-right: 15px;
-`
-
-const BottomContentSectionTwoActor2 = styled.a`
-align-items: center;
-color: inherit;
-text-decoration: none;
-height: 76px;
-background-color: transparent;
-`
-
-const BottomContentSectionTwoDiv3 = styled.div`
-line-height: normal;
-`
 
 const BottomSide = styled.div`
 @media only screen and (max-width: 1023px) {
@@ -283,18 +194,7 @@ const BottomSide = styled.div`
 width: 320px;
 padding: 0px 8px;
 display: table-cell
+
 `
-const BottomSideTwo = styled.div`
-border: 1px solid;
-border-radius: 6px;
-background: rgb(255, 255, 255);
-overflow: hidden;
-border-color: rgb(227, 227, 227) !important;
-`
-const BottomGallery = styled.div`
-padding: 8px 0px 0px;
-`
-const BottomVideo = styled.div`
-padding: 8px 0px 0px;
-`
+
 export default HeaderBottom

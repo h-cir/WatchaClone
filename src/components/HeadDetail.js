@@ -47,10 +47,7 @@ const HeadDetail = (props) => {
 
                                 <ConetentActionTwo />
                                 <ConetentActionThree>
-                                  
-                            
                                         <CommentModal/>
-                                  
                                 </ConetentActionThree>
                             </ConetentAction>
                         </HeaderBottomLeft>
@@ -115,7 +112,6 @@ align-items: flex-end;
 
 const HeaderTitlePic3 = styled.div`
 @media only screen and (min-width: 1023px) {
- 
     }   
 position: absolute;
 top: -22px;
@@ -143,83 +139,82 @@ transition: opacity 420ms ease 0s;
 border-style: none;
 `
 
-
 const HeaderLeft = styled.div`
-     flex: 1 1 0%;
-     background: rgb(20, 20, 20);
+flex: 1 1 0%;
+background: rgb(20, 20, 20);
 `
 
 const HeaderImage = styled.div`
-    background: url("${(props) => props.src}") center center / cover no-repeat;
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 1200px;
-    height: 100%;
-    filter: none;
+background: url("${(props) => props.src}") center center / cover no-repeat;
+position: relative;
+top: auto;
+left: auto;
+width: 1200px;
+height: 100%;
+filter: none;
     `
 
 const HeaderRight = styled.div`
-    flex: 1 1 0%;
-    background: rgb(24, 22, 11);
+flex: 1 1 0%;
+background: rgb(24, 22, 11);
 `
 const Headergradient = styled.div`
 @media only screen and (min-width: 719px) {
-    background-image: linear-gradient(-180deg, rgba(0, 0, 0, 0.35) 2%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.5) 100%);
-    }
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    background-image: linear-gradient(-180deg, rgba(20, 20, 20, 0.3) 1%, rgba(20, 20, 20, 0.5) 67%, rgb(20, 20, 20) 98%);
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: block;
+background-image: linear-gradient(-180deg, rgba(0, 0, 0, 0.35) 2%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.5) 100%);
+}
+position: absolute;
+top: 0px;
+left: 0px;
+background-image: linear-gradient(-180deg, rgba(20, 20, 20, 0.3) 1%, rgba(20, 20, 20, 0.5) 67%, rgb(20, 20, 20) 98%);
+width: 100%;
+height: 100%;
+overflow: hidden;
+display: block;
 `
 const LeftGradint = styled.div`
 @media only screen and (min-width: 719px) {
-    display: block;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    background-image: linear-gradient(-90deg, rgba(42, 28, 16, 0) 0%, rgb(42, 28, 16) 100%);
-    width: 100px;
-    }
+display: block;
+position: absolute;
+top: 0px;
+bottom: 0px;
+left: 0px;
+background-image: linear-gradient(-90deg, rgba(42, 28, 16, 0) 0%, rgb(42, 28, 16) 100%);
+width: 100px;
+}
 }
 `
 const RightGradint = styled.div`
 @media only screen and (min-width: 719px) {
-    display: block;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    background-image: linear-gradient(90deg, rgba(29, 31, 43, 0) 0%, rgb(29, 31, 43) 100%);
-    width: 100px;
-    }
+display: block;
+position: absolute;
+top: 0px;
+right: 0px;
+bottom: 0px;
+background-image: linear-gradient(90deg, rgba(29, 31, 43, 0) 0%, rgb(29, 31, 43) 100%);
+width: 100px;
+}
 `
 
 const HeaderBottom = styled.div`
-    padding: 14px 16px 22px;
+padding: 14px 16px 22px;
 `
 
 const HeaderBottomOne = styled.div`
 @media only screen and (min-width: 1023px) {
-    max-width: 960px;
-    }   
-    max-width: 640px;
-    margin: 0px auto;
-    text-align: center;
+max-width: 960px;
+}   
+max-width: 640px;
+margin: 0px auto;
+text-align: center;
 `
 
 
 const HeaderBottomLeft = styled.div`
 @media only screen and (min-width: 1023px) {
-    margin: 0 0 0 191px;
-    }   
-    text-align: left;
-    margin: 0px 0px 0px 173px;
+margin: 0 0 0 191px;
+}   
+text-align: left;
+margin: 0px 0px 0px 173px;
 }
 `
 const Title = styled.h1`
@@ -309,12 +304,11 @@ background: rgb(237, 237, 237);
 `
 const ConetentActionThree = styled.div`
 @media only screen and (min-width: 1023px) {
-    padding: 0 0 0 30px;
-    margin: 0 -16px;
-    }  
-    width: auto;
-    padding: 0px 20px;
-    margin: 7.5px -1.5px;
-    
+padding: 0 0 0 30px;
+margin: 0 -16px;
+}  
+width: auto;
+padding: 0px 20px;
+margin: 7.5px -1.5px;
 `
 export default HeadDetail

@@ -2,7 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import HeadDetail from "../components/HeadDetail";
 import HeaderBottom from "../components/HeadBottom";
+import { actionCreators as detailActions } from "../redux/modules/detail";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
 const DetailPage = (props) => {
+    const dispatch = useDispatch();
+    const movie_id = 634649
+    const list = useSelector((state) => state.detail.list);
+    console.log(list)
+    React.useEffect(() => {
+        dispatch(detailActions.getDetailMovieListDB(movie_id));
+    }, []);
+
 
     return (
         <>

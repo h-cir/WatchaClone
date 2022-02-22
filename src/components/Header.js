@@ -12,7 +12,8 @@ const Header = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
   const is_token = localStorage.getItem("is_login") ? true : false;
   React.useEffect(() => { }, [is_login]);
-  // const [scrollPosition, setScrollPosition] = useState(0);
+
+  // const [scrollPosition, setScrollPosition] = React.useState(0);
   // const updateScroll = () => {
   //   setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   // };

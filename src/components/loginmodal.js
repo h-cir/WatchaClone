@@ -22,7 +22,7 @@ const style = {
   borderRadius: "6px",
 };
 
-const BasicModal = () => {
+const BasicModal = (props) => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -43,7 +43,9 @@ const BasicModal = () => {
   }
   return (
     <div>
-      <HeaderButton onClick={handleOpen}>로그인</HeaderButton>
+      {props.login === true ? 
+      <LoginButton onClick={handleOpen}>로그인</LoginButton>
+       : <HeaderButton onClick={handleOpen}>로그인</HeaderButton>}
       <Modal
         open={open}
         onClose={handleClose}
@@ -173,5 +175,4 @@ const HeaderButton = styled.button`
     border: 1px solid rgba(116,116,123,0.5);
     margin: 15px 3px;
 `
-
 export default BasicModal

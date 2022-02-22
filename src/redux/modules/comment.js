@@ -10,6 +10,8 @@ const GET_COMMENT = "COMMENT_GET";
 const GET_COMMENTLIST = "COMMENTLIST_GET";
 const UPDATE_COMMENT = "COMMENT_UPDATE";
 const DELETE_COMMENT = "COMMENT_DELETE";
+const LIKE_COMMENT = "COMMENT_LIKE";
+const UNLIKE_COMMENT = "COMMETN_UNLIKE"
 
 //action creator
 const addComment = createAction(ADD_COMMENT, (comments) => ({ comments }));
@@ -17,6 +19,8 @@ const getComment = createAction(GET_COMMENT, (comment) => ({ comment }));
 const getCommentList = createAction(GET_COMMENTLIST, (comments) => ({ comments }));
 const updateComment = createAction(UPDATE_COMMENT, (commentId, comment) => ({ commentId, comment }));
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({ commentId }));
+const likeComment = createAction(LIKE_COMMENT, (commentId) => ({ commentId,  }));
+const unlikeComment = createAction(UNLIKE_COMMENT, (commentId) => ({ commentId,  }));
 
 //initialState
 const initialState = {

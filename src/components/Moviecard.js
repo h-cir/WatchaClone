@@ -4,7 +4,6 @@ import { Grid, Text } from "../elementsJ";
 import { useHistory } from "react-router";
 
 const MovieCard = (props) => {
-  console.log(props[0])
   const history = useHistory();
   return (
     <React.Fragment>

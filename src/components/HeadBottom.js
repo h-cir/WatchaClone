@@ -3,7 +3,9 @@ import styled from "styled-components";
 import Creadit from "./Creadit";
 import Sidebar from "./Sidebar";
 
-const HeaderBottom = () => {
+const HeaderBottom = (props) => {
+    const list = props
+    
     return (
         <Bottom>
             <BottomInner>
@@ -19,15 +21,15 @@ const HeaderBottom = () => {
                                 <div style={{ margin: "0px 20px" }}>
                                     <BottomContentSectionOneArticle>
                                         <BottomContentSectionOneArticleOne>
-                                            ドライブ・マイ・カー
+                                            {list.title}
                                             <br />
-                                            <span>2021 · 일본 · 드라마</span>
+                                            <span>{list.year} · {list.country} · {list.genre}</span>
                                             <br />
-                                            <span>2시간 59분 · 15세</span>                                       '
+                                            <span>{list.duration} · {list.age}세</span>
                                         </BottomContentSectionOneArticleOne>
                                         <BottomContentSectionOneArticleTwo>
                                             <BottomContentSectionOneArticleTwoDiv>
-                                                누가 봐도 아름다운 부부 가후쿠와 오토. 우연히 아내의 외도를 목격한 가후쿠는 이유를 묻지 못한 채 갑작스럽게 아내의 죽음을 맞이하게 된다. 2년 후 히로시마의 연극제에 초청되...
+                                                {list.description}
                                             </BottomContentSectionOneArticleTwoDiv>
                                         </BottomContentSectionOneArticleTwo>
                                     </BottomContentSectionOneArticle>
@@ -36,9 +38,9 @@ const HeaderBottom = () => {
                             <hr style={{ border: "0", borderBottom: "1px solid #f0f0f0", margin: "24px 20px 0 20px" }} />
                         </div>
 
-
-
-                        <Creadit />
+                
+                        <Creadit {...list} />
+                        
                         <div style={{ padding: "8px 0px 0px" }}>
                             <div>
                                 <div style={{ margin: "0 20px", overflow: "hidden" }}>

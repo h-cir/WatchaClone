@@ -21,7 +21,6 @@ export const getDetailMovieListDB = (movie_id) => {
         .get(`/api/movies/${movie_id}/details`)
         .then((res)=>{
             const movies = res.data.movieInfo
-    
             dispatch(getDetailMovieList(movies));
         })
         .catch((err) => {

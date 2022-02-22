@@ -5,22 +5,23 @@ import HeaderBottom from "../components/HeadBottom";
 import { actionCreators as detailActions } from "../redux/modules/detail";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-
+import { history } from "../redux/configureStore";
+import { actionCreators as movieActions } from "../redux/modules/movie";
 const DetailPage = (props) => {
     const dispatch = useDispatch();
-    const movie_id = 634649
+    const movie_id = props.match.params.movieid;
     const list = useSelector((state) => state.detail.list);
     console.log(list)
+
     React.useEffect(() => {
         dispatch(detailActions.getDetailMovieListDB(movie_id));
     }, []);
-
-
+   
     return (
         <>
             <Section>
-                <HeadDetail />
-                <HeaderBottom />
+                <HeadDetail {...list} />
+                <HeaderBottom {...list} />
             </Section>
         </>
     )

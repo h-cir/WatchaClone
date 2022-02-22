@@ -26,11 +26,11 @@ const loginDB = (userId, password) => {
         userId: userId, 
         password: password })
     .then((res) => {
-      alert(res.data.success);
+      console.log(res)
     //   localStorage.setItem("user_nick", res.data.user_nick);
       localStorage.setItem("is_login", res.data.token);
       dispatch(setUser());
-      history.push("/");
+      // history.push("/");
     });
   };
 };
@@ -40,14 +40,14 @@ const signUpDB = (userId, password, userName) => {
   return function (dispatch, getState, { history }) {
         console.log(userId, password, userName)
     instance
-      .post("api/users/signup", {
+      .post("/api/users/signup", {
         userId: userId,
         password: password,
         userName: userName,
       })
       .then((res) => {
-        window.alert(res.data.success);
-        history.push("/");
+        console.log(res)
+        // history.push("/");
       })
       .catch((error) => {
         console.log(error);

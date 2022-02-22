@@ -4,13 +4,14 @@ import Star from "./Star"
 import CommentModal from "./CommentModal";
 
 const HeadDetail = (props) => {
+    const list = props
     return (
         <>
-            <HeaderSection>
+        <HeaderSection>
                 <Header1>
                     <Header2>
                         <HeaderLeft />
-                        <HeaderImage src={props.src}>
+                        <HeaderImage src={list.galleryUrls && list.galleryUrls[0]}>
                             <LeftGradint />
                             <RightGradint />
                         </HeaderImage>
@@ -21,7 +22,7 @@ const HeadDetail = (props) => {
                     <HeaderTitlePic>
                         <HeaderTitlePic2>
                             <HeaderTitlePic3>
-                                <HeaderTitlePic4 src="https://an2-img.amz.wtchn.net/image/v2/PWQBMb7WWIlmH3crrJ8Qig.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1qZ3dlRFF3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk5ETXlORFV5TmpjMk9UWTRNamMyTVRZaWZRLjQtQnpYVlJpRnFBajNpd29XTDBYY3lNRV90WlhSN25MVWJNWHFPTEI2OU0"></HeaderTitlePic4>
+                                <HeaderTitlePic4 src={list.posterUrl}/>
                             </HeaderTitlePic3>
                         </HeaderTitlePic2>
                     </HeaderTitlePic>
@@ -29,8 +30,8 @@ const HeadDetail = (props) => {
                 <HeaderBottom>
                     <HeaderBottomOne>
                         <HeaderBottomLeft>
-                            <Title>드라이브마이카</Title>
-                            <Detail>2021 ・ 드라마 ・ 일본</Detail>
+                            <Title>{list.title}</Title>
+                            <Detail>{list.genre}</Detail>
                             <ContentRating>평균 ★4.1 (9,644명)</ContentRating>
                             <ConetentAction>
                                 <ConetentActionOne>
@@ -54,6 +55,7 @@ const HeadDetail = (props) => {
                     </HeaderBottomOne>
                 </HeaderBottom>
             </HeaderSection>
+            
 
         </>
     )
@@ -129,7 +131,8 @@ border-radius: 3px;
 background: #f8f8f8;
 transition: 300ms;
 `
-const HeaderTitlePic4 = styled.img`
+const HeaderTitlePic4 = styled.div`
+background: url("${(props) => props.src}") center center / cover no-repeat;
 vertical-align: top;
 width: 100%;
 height: 100%;

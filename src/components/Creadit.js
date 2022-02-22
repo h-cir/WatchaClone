@@ -4,7 +4,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Creadit = () => {
+const Creadit = (props) => {
+    const list = props
+    console.log(list)
+
 
     const NextArrow = (props) => {
         const { className, style, onClick } = props;
@@ -53,83 +56,21 @@ const Creadit = () => {
                             <BottomContentSectionTwoActorBox>
                                 <Container>
                                     <StyledSlider {...settings} >
-                                        <li style={{ width: "50%", boxSizing: "border-box", paddingRight: "15px" }}>
-                                            <BottomContentSectionTwoActor2>
-                                                <BottomContentSectionTwoActor3 />
-                                                <BottomContentSectionTwoActor4>
-                                                    <BottomContentSectionTwoActor5>
-                                                        <BottomContentSectionTwoActor6>양경모</BottomContentSectionTwoActor6>
-                                                        <BottomContentSectionTwoActor7>감독</BottomContentSectionTwoActor7>
-                                                    </BottomContentSectionTwoActor5>
-                                                </BottomContentSectionTwoActor4>
-                                            </BottomContentSectionTwoActor2>
-                                        </li>
-                                        <li style={{ width: "50%", boxSizing: "border-box", paddingRight: "15px" }}>
-                                            <BottomContentSectionTwoActor2>
-                                                <BottomContentSectionTwoActor3 />
-                                                <BottomContentSectionTwoActor4>
-                                                    <BottomContentSectionTwoActor5>
-                                                        <BottomContentSectionTwoActor6>양경모</BottomContentSectionTwoActor6>
-                                                        <BottomContentSectionTwoActor7>감독</BottomContentSectionTwoActor7>
-                                                    </BottomContentSectionTwoActor5>
-                                                </BottomContentSectionTwoActor4>
-                                            </BottomContentSectionTwoActor2>
-                                        </li>
-                                        <li style={{ width: "50%", boxSizing: "border-box", paddingRight: "15px" }}>
-                                            <BottomContentSectionTwoActor2>
-                                                <BottomContentSectionTwoActor3 />
-                                                <BottomContentSectionTwoActor4>
-                                                    <BottomContentSectionTwoActor5>
-                                                        <BottomContentSectionTwoActor6>양경모</BottomContentSectionTwoActor6>
-                                                        <BottomContentSectionTwoActor7>감독</BottomContentSectionTwoActor7>
-                                                    </BottomContentSectionTwoActor5>
-                                                </BottomContentSectionTwoActor4>
-                                            </BottomContentSectionTwoActor2>
-                                        </li>
-                                        <li style={{ width: "50%", boxSizing: "border-box", paddingRight: "15px" }}>
-                                            <BottomContentSectionTwoActor2>
-                                                <BottomContentSectionTwoActor3 />
-                                                <BottomContentSectionTwoActor4>
-                                                    <BottomContentSectionTwoActor5>
-                                                        <BottomContentSectionTwoActor6>양경모</BottomContentSectionTwoActor6>
-                                                        <BottomContentSectionTwoActor7>감독</BottomContentSectionTwoActor7>
-                                                    </BottomContentSectionTwoActor5>
-                                                </BottomContentSectionTwoActor4>
-                                            </BottomContentSectionTwoActor2>
-                                        </li>
-                                        <li style={{ width: "50%", boxSizing: "border-box", paddingRight: "15px" }}>
-                                            <BottomContentSectionTwoActor2>
-                                                <BottomContentSectionTwoActor3 />
-                                                <BottomContentSectionTwoActor4>
-                                                    <BottomContentSectionTwoActor5>
-                                                        <BottomContentSectionTwoActor6>양경모</BottomContentSectionTwoActor6>
-                                                        <BottomContentSectionTwoActor7>감독</BottomContentSectionTwoActor7>
-                                                    </BottomContentSectionTwoActor5>
-                                                </BottomContentSectionTwoActor4>
-                                            </BottomContentSectionTwoActor2>
-                                        </li>
-                                        <li style={{ width: "50%", boxSizing: "border-box", paddingRight: "15px" }}>
-                                            <BottomContentSectionTwoActor2>
-                                                <BottomContentSectionTwoActor3 />
-                                                <BottomContentSectionTwoActor4>
-                                                    <BottomContentSectionTwoActor5>
-                                                        <BottomContentSectionTwoActor6>양경모</BottomContentSectionTwoActor6>
-                                                        <BottomContentSectionTwoActor7>감독</BottomContentSectionTwoActor7>
-                                                    </BottomContentSectionTwoActor5>
-                                                </BottomContentSectionTwoActor4>
-                                            </BottomContentSectionTwoActor2>
-                                        </li>
-                                        <li style={{ width: "50%", boxSizing: "border-box", paddingRight: "15px" }}>
-                                            <BottomContentSectionTwoActor2>
-                                                <BottomContentSectionTwoActor3 />
-                                                <BottomContentSectionTwoActor4>
-                                                    <BottomContentSectionTwoActor5>
-                                                        <BottomContentSectionTwoActor6>양경모</BottomContentSectionTwoActor6>
-                                                        <BottomContentSectionTwoActor7>감독</BottomContentSectionTwoActor7>
-                                                    </BottomContentSectionTwoActor5>
-                                                </BottomContentSectionTwoActor4>
-                                            </BottomContentSectionTwoActor2>
-                                        </li>
+                                        {list.credits && list.credits.map((v, idx) => {
+                                            return (
+                                                <li key={idx} style={{ width: "50%", boxSizing: "border-box", paddingRight: "15px" }}>
+                                                    <BottomContentSectionTwoActor2>
+                                                        <BottomContentSectionTwoActor3 src={v.image} />
+                                                        <BottomContentSectionTwoActor4>
+                                                            <BottomContentSectionTwoActor5>
+                                                                <BottomContentSectionTwoActor6>{v.name}</BottomContentSectionTwoActor6>
+                                                                <BottomContentSectionTwoActor7>{v.role}</BottomContentSectionTwoActor7>
+                                                            </BottomContentSectionTwoActor5>
+                                                        </BottomContentSectionTwoActor4>
+                                                    </BottomContentSectionTwoActor2>
+                                                </li>
+                                            )
+                                        })}
                                     </StyledSlider>
                                 </Container>
                             </BottomContentSectionTwoActorBox>
@@ -185,7 +126,8 @@ border: none;
 margin: 0px 12px 0px 0px;
 border-radius: 5px !important;
 box-shadow: rgb(0 0 0 / 8%) 0px 0px 0px 1px inset;
-background: url(https://an2-img.amz.wtchn.net/image/v2/bzYGmStr4Q3BAG8ZvRHKtg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1qUXdlREkwTUNKZExDSndJam9pTDNZeEwzQmxiM0JzWlM5dFpXUnBkVzB2TVdaalpEUmpZMlV4WXpNM05ESmlOV0poWlRFdWFuQm5JbjAuRUg1UXkzbk8yTlpENDROXzg1OGhKSS1VMzZDb3VfWlZyQ0Rfd2pURDc5WQ) center center / cover no-repeat;
+background: url("${(props) => props.src}") center center / cover no-repeat;
+
 `
 
 const BottomContentSectionTwoActor4 = styled.div`

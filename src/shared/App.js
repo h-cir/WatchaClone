@@ -14,7 +14,7 @@ function App() {
       <Header></Header>
       <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
-        <Route path="/detailpage" exact component={DetailPage} />
+        <Route path="/detailpage/:movieid" exact component={DetailPage} />
       </ConnectedRouter>
     </React.Fragment>
   );

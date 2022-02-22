@@ -2,15 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import Creadit from "./Creadit";
 import Sidebar from "./Sidebar";
+import CommentBox from "./CommentBox";
+import CommentMy from "./CommentMy";
 
 const HeaderBottom = (props) => {
     const list = props
-
     
     return (
         <Bottom>
             <BottomInner>
                 <BottomContent>
+                <CommentMy/>
                     <BottomContentLeft>
                         <div style={{ padding: "8px 0px 0px" }}>
                             <div style={{ margin: "0px 20px" }}>
@@ -64,41 +66,9 @@ const HeaderBottom = (props) => {
                                 <hr style={{ border: "0", borderBottom: "1px solid #f0f0f0", margin: "24px 20px 0 20px" }} />
                             </div>
                         </div>
-
-                        <div style={{ padding: "8px 0px 0px" }}>
-                            <div style={{ margin: "0 20px" }}>
-                                <header style={{ overflow: "hidden" }}>
-                                    <h2 style={{ float: "left", color: "#000", fontSize: "19px", fontWeight: "700", letterSpacing: "-0.7px", lineHeight: "28px", margin: "8px 0" }}>
-                                        코멘트
-                                    </h2>
-                                    <span style={{ display: "inline-block", color: "#a0a0a0", fontSize: "15px", fonwWeight: "400", letterSpacing: "-0.5px", lineHeight: "20px", margin: "12px 0 12px 6px" }}>
-                                        +80
-                                    </span>
-                                </header>
-                            </div>
-                            <div style={{ overflow: "hidden", padding: "0 5px", margin: "0 -5px" }}>
-                                <div style={{ margin: "0 20px" }}>
-                                    <ul style={{ listStyle: "none", padding: "0px", margin: "0px", whiteSpace: "nowrap", marginRight: "-5px !important", marginLeft: "-5px !important", marginTop: "14px", marginBottom: "30px" }}>
-                                        <li style={{ width: "50%", display: "inline-block", verticalAlign: "top", boxSizing: "border-box", padding: "0 5px" }}>
-                                            <div style={{ backgroundColor: "#f2f2f2", boxSizing: "border-box", padding: "0 12px", borderRadius: "6px", overflow: "hidden" }}>
-                                                <div style={{ display: "flex", borderBottom: "1px solid #e5e5e5", overflow: "hidden" }}>
-                                                    <div style={{ flex: "1", fontSize: "17px", fontWeight: "400", letterSpacing: "-0.7px", lineHeight: "22px", overflow: "hidden" }}>
-                                                        <a style={{ dispay: "flex", flex: "1", alignItems: "center", color: "#000" }}>유저닉네임</a>
-                                                    </div>
-                                                </div>
-                                                <div>코멘트내용</div>
-                                                <div>좋아요 이모티콘</div>
-                                                <div>좋아요버튼</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <CommentBox/>
                     </BottomContentLeft>
                 </BottomContent>
-
-
                 <BottomSide>
                     <BottomContentLeft>
                         <Sidebar {...list}/>

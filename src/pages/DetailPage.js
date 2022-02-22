@@ -11,7 +11,6 @@ const DetailPage = (props) => {
     const dispatch = useDispatch();
     const movie_id = props.match.params.movieid;
     const list = useSelector((state) => state.detail.list);
-
     React.useEffect(() => {
         dispatch(detailActions.getDetailMovieListDB(movie_id));
     }, []);

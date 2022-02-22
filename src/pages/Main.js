@@ -6,7 +6,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MovieCard from "../components/MovieCard";
-import CommentCard from "../components/CommentCard";
 import { actionCreators as movieActions } from "../redux/modules/movie";
 
 const Main = () => {
@@ -83,7 +82,6 @@ const Main = () => {
             </Frame2>
           </Frame>
         </RankingBox>
-        <CommentCard/>
       </Section>
     </React.Fragment>
   );

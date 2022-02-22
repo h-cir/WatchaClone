@@ -7,25 +7,31 @@ import Signupmodal from "./Signupmodal";
 import Button from '@mui/material/Button';
 import { actionCreators as userActions } from "../redux/modules/user";
 
+import {useState, useEffect} from 'react'
+import './Header.css'
+
 const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const is_token = localStorage.getItem("is_login") ? true : false;
   React.useEffect(() => { }, [is_login]);
 
-  // const [scrollPosition, setScrollPosition] = React.useState(0);
-  // const updateScroll = () => {
-  //   setScrollPosition(window.scrollY || document.documentElement.scrollTop);
-  // };
-  // React.useEffect(() => {
-  //   window.addEventListener("scroll", updateScroll);
-  // });
+  const [navbar, setNavbar] = useState(false)
+
+  const changeBackground = () => {
+      if(window.scrollY >= 62){
+          setNavbar(false) 
+      } else {
+          setNavbar(true)
+      }
+  }
+  window.addEventListener('scroll', changeBackground)
 
   if(is_token){
     return (
       <React.Fragment>
-        <Frame>
-          <a href="/">
+        <nav className={navbar ? "navbar active":"navbar"}>
+          <Watcha href="/">
             <svg viewBox="0 0 151 29">
               <g fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -76,21 +82,22 @@ const Header = (props) => {
                 ></path>
               </g>
             </svg>
-          </a>
+          </Watcha>
           <div>
             <HeaderButton onClick={() => {
                 dispatch(userActions.logoutDB());
                 window.location.reload("/");
               }}>로그아웃</HeaderButton>
           </div>
-        </Frame>
+        </nav>
+     
       </React.Fragment>
     );
   }
   return (
     <React.Fragment>
       <Frame>
-        <a href="/">
+        <Watcha href="/">
           <svg viewBox="0 0 151 29">
             <g fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -141,16 +148,24 @@ const Header = (props) => {
               ></path>
             </g>
           </svg>
-        </a>
+        </Watcha>
         <div>
           <Loginmodal />
           <Signupmodal />
         </div>
       </Frame>
+      
     </React.Fragment>
   );
 };
 
+const Watcha = styled.a`
+background-color: transparent;
+z-index: 60;
+width: 151px;
+height: 29px;
+
+`
 const Frame = styled.div`
   display: flex;
   position: fixed;

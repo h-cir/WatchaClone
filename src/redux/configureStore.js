@@ -7,6 +7,7 @@ import User from "./modules/user";
 import Detail from "./modules/detail";
 import movie from "./modules/movie";
 import comment from "./modules/comment";
+import Star from "./modules/star";
 
 
 export const history = createBrowserHistory();
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   detail: Detail,
   movie: movie,
   comment: comment,
+  star: Star,
   router: connectRouter(history),
 });
 

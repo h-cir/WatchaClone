@@ -4,8 +4,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Sidebar = () => {
-
+const Sidebar = (props) => {
+    const list = props
+ 
     const NextArrow = (props) => {
         const { className, style, onClick } = props;
         return (
@@ -34,7 +35,7 @@ const Sidebar = () => {
         slidesToScroll: 2,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
-      };
+    };
     return (
         <>
             <div style={{ padding: "8px 0px 0px" }}>
@@ -48,31 +49,19 @@ const Sidebar = () => {
                         <BottomVideo3>
                             <BottomVideo4>
                                 <BottomVideo5>
-
                                     {/* 반복지점 */}
                                     <Container>
-                                    <StyledSlider {...settings} >
-                                        <BottomVideo6>
-                                            <BottomVideo7>
-                                                <BottomGallery2></BottomGallery2>
-                                            </BottomVideo7>
-                                        </BottomVideo6>
-                                        <BottomVideo6>
-                                            <BottomVideo7>
-                                                <BottomGallery2></BottomGallery2>
-                                            </BottomVideo7>
-                                        </BottomVideo6>
-                                        <BottomVideo6>
-                                            <BottomVideo7>
-                                                <BottomGallery2></BottomGallery2>
-                                            </BottomVideo7>
-                                        </BottomVideo6>
-                                        <BottomVideo6>
-                                            <BottomVideo7>
-                                                <BottomGallery2></BottomGallery2>
-                                            </BottomVideo7>
-                                        </BottomVideo6>
-                                    </StyledSlider>
+                                        <StyledSlider {...settings} >
+                                            {list.galleryUrls && list.galleryUrls.map((v, idx) => {
+                                                return (
+                                                    <BottomVideo6 key={idx}>
+                                                        <BottomVideo7>
+                                                            <BottomGallery2 src={v} />
+                                                        </BottomVideo7>
+                                                    </BottomVideo6>
+                                                )
+                                            })}
+                                        </StyledSlider>
                                     </Container>
                                     {/* 반복지점 */}
                                 </BottomVideo5>
@@ -84,7 +73,7 @@ const Sidebar = () => {
             </div>
 
 
-
+                                                   
             <BottomGallery>
                 <div style={{ margin: "0px 20px" }}>
                     <header style={{ overflow: "hidden" }}>
@@ -100,54 +89,30 @@ const Sidebar = () => {
                                 <BottomVideo5>
                                     {/* 반복지점 */}
                                     <Container>
-                                    <StyledSlider {...settings} >
-                                        <BottomVideo6>
-                                            <BottomNewVideo href="https://www.youtube.com/watch?v=Eio2Kew3_6Y">
-                                                <BottomNewVideoVideo>
-                                                    <BottomNewVideoVideo2 />
-                                                    <BottomNewVideoVideo3>
-                                                        <BottomNewVideoVideo4 />
-                                                    </BottomNewVideoVideo3>
-                                                </BottomNewVideoVideo>
-                                            </BottomNewVideo>
-                                            <BottomNewVideoText>
-                                                <div style={{ margin: "8px 0px 0px", maxHeight: "40px", margin: "0px", overflow: "hidden" }}>
-                                                    <div style={{ whiteSpace: "pre-wrap" }}>메인예고편</div>
-                                                </div>
-                                            </BottomNewVideoText>
-                                        </BottomVideo6>
-                                        <BottomVideo6>
-                                            <BottomNewVideo href="https://www.youtube.com/watch?v=Eio2Kew3_6Y">
-                                                <BottomNewVideoVideo>
-                                                    <BottomNewVideoVideo2 />
-                                                    <BottomNewVideoVideo3>
-                                                        <BottomNewVideoVideo4 />
-                                                    </BottomNewVideoVideo3>
-                                                </BottomNewVideoVideo>
-                                            </BottomNewVideo>
-                                            <BottomNewVideoText>
-                                                <div style={{ margin: "8px 0px 0px", maxHeight: "40px", margin: "0px", overflow: "hidden" }}>
-                                                    <div style={{ whiteSpace: "pre-wrap" }}>메인예고편</div>
-                                                </div>
-                                            </BottomNewVideoText>
-                                        </BottomVideo6>
-                                        <BottomVideo6>
-                                            <BottomNewVideo href="https://www.youtube.com/watch?v=Eio2Kew3_6Y">
-                                                <BottomNewVideoVideo>
-                                                    <BottomNewVideoVideo2 />
-                                                    <BottomNewVideoVideo3>
-                                                        <BottomNewVideoVideo4 />
-                                                    </BottomNewVideoVideo3>
-                                                </BottomNewVideoVideo>
-                                            </BottomNewVideo>
-                                            <BottomNewVideoText>
-                                                <div style={{ margin: "8px 0px 0px", maxHeight: "40px", margin: "0px", overflow: "hidden" }}>
-                                                    <div style={{ whiteSpace: "pre-wrap" }}>메인예고편</div>
-                                                </div>
-                                            </BottomNewVideoText>
-                                        </BottomVideo6>
-                                        
-                                    </StyledSlider>
+                                        <StyledSlider {...settings} >
+                                            {list.videoUrls && list.videoUrls.map((v, idx) => {
+                                                    const url = v.url
+                                                    const youtube_id = url.split('=')[1] 
+                                                    const thumbnail = `https://img.youtube.com/vi/${youtube_id}/0.jpg`
+                                                return (
+                                                    <BottomVideo6 key={idx}>
+                                                        <BottomNewVideo href={v.url}>
+                                                            <BottomNewVideoVideo>
+                                                                <BottomNewVideoVideo2 src={thumbnail}/>
+                                                                <BottomNewVideoVideo3>
+                                                                    <BottomNewVideoVideo4 />
+                                                                </BottomNewVideoVideo3>
+                                                            </BottomNewVideoVideo>
+                                                        </BottomNewVideo>
+                                                        <BottomNewVideoText>
+                                                            <div style={{ margin: "8px 0px 0px", maxHeight: "40px", margin: "0px", overflow: "hidden" }}>
+                                                                <div  style={{ whiteSpace: "pre-wrap" }}>{v.title}</div>
+                                                            </div>
+                                                        </BottomNewVideoText>
+                                                    </BottomVideo6>
+                                                )
+                                            })}
+                                        </StyledSlider>
                                     </Container>
                                     {/* 반복지점 */}
                                 </BottomVideo5>
@@ -243,8 +208,7 @@ border-radius: 3px;
 padding-bottom: 66.4615%;
 `
 const BottomGallery2 = styled.span`
-background-image: url(https://an2-img.amz.wtchn.net/image/v2/OBRHLslTmXDFnNbvVcMnCQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5qUXdlRE0yTUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk16VXlNalk1T1RNeU5ETTVNRFU0TWpJaWZRLmpzY2h0S05rMGZKN1BuS0NPMEtoa3FiWHotREg4cGtqTXhNVVRnaWt1YnM);
-}
+background: url("${(props) => props.src}") center center / cover no-repeat;
 display: inline-block;
 position: absolute;
 inset: 0px;
@@ -277,7 +241,8 @@ background-position: center center;
 background-repeat: no-repeat;
 opacity: 1;
 transition: all 300ms ease 0s;
-background-image: url(https://img.youtube.com/vi/Eio2Kew3_6Y/0.jpg);
+// background-image: url(https://img.youtube.com/vi/Eio2Kew3_6Y/0.jpg);
+background: url("${(props) => props.src}") center center / cover no-repeat;
 `
 const BottomNewVideoVideo3 = styled.div`
 display: flex;

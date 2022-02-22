@@ -11,7 +11,6 @@ const DetailPage = (props) => {
     const dispatch = useDispatch();
     const movie_id = props.match.params.movieid;
     const list = useSelector((state) => state.detail.list);
-    console.log(list)
 
     React.useEffect(() => {
         dispatch(detailActions.getDetailMovieListDB(movie_id));
@@ -37,8 +36,5 @@ const Section = styled.div`
     padding-bottom: unset;
     background: rgb(248, 248, 248);
 `
-
-
-
 
 export default DetailPage

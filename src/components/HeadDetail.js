@@ -2,9 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import Star from "./Star"
 import CommentModal from "./CommentModal";
-
+import { useSelector, useDispatch } from "react-redux";
 const HeadDetail = (props) => {
+    const movieId = props.movieId
+    const token = localStorage.getItem("is_login")
+    const userInfo = useSelector((state) => state.star.list)
+    
+    React.useEffect(() => {
+        if (userInfo[movieId] && userInfo[movieId][1] === 0) {
+          setToggle(true);
+        } else {
+          setToggle(false);
+        }
+      });
+    
     const list = props
+    const [toggle, setToggle] = React.useState(false);
     return (
         <>
         <HeaderSection>
@@ -36,12 +49,15 @@ const HeadDetail = (props) => {
                             <ConetentAction>
                                 <ConetentActionOne>
                                     <ConetentActionpyungga>
-                                        <ConetentActionpyunggaOne>평가하기</ConetentActionpyunggaOne>
+                                     
+                                     {toggle? <ConetentActionpyunggaOne>평가하기</ConetentActionpyunggaOne> :
+                                     <ConetentActionpyunggaOne>취소하기</ConetentActionpyunggaOne>}
+                                        
                                     </ConetentActionpyungga>
 
                                     <ConetentActionstar>
                                         <ConetentActionstarOne>
-                                            <Star />
+                                            <Star {...list}/>
                                         </ConetentActionstarOne>
                                     </ConetentActionstar>
                                 </ConetentActionOne>
@@ -76,7 +92,7 @@ const Header1 = styled.div`
     }
     position: relative;
     box-sizing: border-box;
-    min-height: 209px;
+    min-height: 250px;
     padding: 44px 0px 0px;
 `
 const Header2 = styled.div`

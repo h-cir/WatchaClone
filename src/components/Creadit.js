@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Creadit = (props) => {
     const list = props
-    console.log(list)
+  
 
 
     const NextArrow = (props) => {
@@ -216,4 +216,5 @@ const StyledSlider = styled(Slider)`
 const Container = styled.div`
   width: 590px;
 `;
+
 export default Creadit

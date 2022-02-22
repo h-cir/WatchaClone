@@ -5,6 +5,7 @@ import Sidebar from "./Sidebar";
 
 const HeaderBottom = (props) => {
     const list = props
+
     
     return (
         <Bottom>
@@ -100,7 +101,7 @@ const HeaderBottom = (props) => {
 
                 <BottomSide>
                     <BottomContentLeft>
-                        <Sidebar/>
+                        <Sidebar {...list}/>
                     </BottomContentLeft>
                 </BottomSide>
          

@@ -22,7 +22,7 @@ const style = {
     borderRadius: "6px",
 };
 
-const Signupmodal = () => {
+const Signupmodal = (props) => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -47,7 +47,9 @@ const Signupmodal = () => {
   };
   return (
     <div>
-      <HeaderButton onClick={handleOpen}>회원가입</HeaderButton>
+      {props.signup === true ? 
+      <SignupButton onClick={handleOpen}>회원가입</SignupButton>:
+      <HeaderButton onClick={handleOpen}>회원가입</HeaderButton>}
       <Modal
         open={open}
         onClose={handleClose}

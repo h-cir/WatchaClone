@@ -30,6 +30,9 @@ const NouUserModal = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [login, setLogin] = React.useState(true);
+  const [signup, setSignup] = React.useState(true);
+  
 
   return (
     <div>
@@ -49,7 +52,6 @@ const NouUserModal = () => {
     alignItems: "center",}}>
                 <span
                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM3ODc4NzgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODU3IDE3Ljc4Nkw2IDIxdi00LjkxYy0xLjg0MS0xLjM3My0zLTMuMzY5LTMtNS41OUMzIDYuMzU4IDcuMDMgMyAxMiAzczkgMy4zNTggOSA3LjVjMCA0LjE0Mi00LjAzIDcuNS05IDcuNS0uNzM5IDAtMS40NTYtLjA3NC0yLjE0My0uMjE0eiIvPgo8L3N2Zz4K"
-                  class="css-1hj09ha"
                 ></span>
                 <div style={{width:"100%", textAlign:"center",padding:"50px 0px",margin:"0px 20px"}}>
                 <div
@@ -77,9 +79,8 @@ const NouUserModal = () => {
                 </p>
                 </div>
               </div>
-              <SignupButton>회원가입</SignupButton>
-              <LoginButton>로그인</LoginButton>
-              {/* <Loginmodal /><Signupmodal /> */}
+              <Signupmodal signup={signup}/>
+              <Loginmodal login={login}/>
             </section>
           </div>
         </Box>
@@ -104,37 +105,4 @@ const Input = styled.input`
   }
   caret-color: red;
 `;
-const LoginButton = styled.button`
-  padding: 0px;
-  border: none;
-  cursor: pointer;
-  color: rgb(255, 47, 110);
-  background: rgb(255, 255, 255);
-  text-align: center;
-  font-size: 17px;
-  font-weight: 400;
-  letter-spacing: -0.7px;
-  line-height: 22px;
-  width: 100%;
-  height: 44px;
-  border-radius: 6px;
-  margin: 16px 0px 0px;
-`;
-const SignupButton = styled.button`
-  padding: 0px;
-  border: none;
-  cursor: pointer;
-  background: rgb(255, 47, 110);
-  color: rgb(255, 255, 255);
-  text-align: center;
-  font-size: 17px;
-  font-weight: 400;
-  letter-spacing: -0.7px;
-  line-height: 22px;
-  width: 100%;
-  height: 44px;
-  border-radius: 6px;
-  margin: 16px 3px 0px;
-`;
-
 export default NouUserModal;

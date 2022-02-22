@@ -16,7 +16,6 @@ const Main = () => {
   React.useEffect(() => {
     dispatch(movieActions.getMovieListDB());
   }, []);
-  
   const NextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -45,6 +44,23 @@ const Main = () => {
     slidesToScroll: 5,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    // responsive: [
+    //   {
+    //     breakpoint: 1100,
+    //     settings: {
+    //       slidesToShow: 4,
+    //       slidesToScroll: 4,
+    //     }
+    //   },
+    //   {
+    //     breakpoint: 760,
+    //     settings: {
+    //       slidesToShow: 3,
+    //       slidesToScroll: 3,
+    //       initialSlide: 2
+    //     }
+    //   },
+    // ]
   };
   return (
     <React.Fragment>

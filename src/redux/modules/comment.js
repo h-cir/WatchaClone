@@ -2,12 +2,12 @@ import instance from "../../shared/Request";
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("is_login");
 
 //action
 const ADD_COMMENT = "COMMENT_ADD";
-const GET_COMMENT = "COMMENT_GET";
 const GET_COMMENTLIST = "COMMENTLIST_GET";
+const GET_COMMENT = "COMMENT_GET";
 const UPDATE_COMMENT = "COMMENT_UPDATE";
 const DELETE_COMMENT = "COMMENT_DELETE";
 const LIKE_COMMENT = "COMMENT_LIKE";
@@ -15,8 +15,8 @@ const UNLIKE_COMMENT = "COMMETN_UNLIKE"
 
 //action creator
 const addComment = createAction(ADD_COMMENT, (comments) => ({ comments }));
-const getComment = createAction(GET_COMMENT, (comment) => ({ comment }));
 const getCommentList = createAction(GET_COMMENTLIST, (comments) => ({ comments }));
+const getComment = createAction(GET_COMMENT, (comment) => ({ comment }));
 const updateComment = createAction(UPDATE_COMMENT, (commentId, comment) => ({ commentId, comment }));
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({ commentId }));
 const likeComment = createAction(LIKE_COMMENT, (commentId) => ({ commentId,  }));
@@ -34,34 +34,18 @@ export const addCommentDB = (movieId, comment) => {
       .post(
         `/api/movies/${movieId}/comments`,
         {
-          comment: "",
+          comment: comment,
         },
         { headers: { authorization: `Bearer ${token}` } }
       )
       .then((response) => {
         console.log(response, "코멘트 작성 성공");
         console.log(response.data.message);
-        // dispatch(addComment(movieId, comment));
+        dispatch(addComment());
       })
       .catch((error) => {
-        console.log(error.response.data.message);
+        console.log(error.response.data.errorMessage);
         console.log(error, "코멘트 작성 오류");
-      });
-  };
-};
-
-export const getCommentDB = (movieId) => {
-  return (dispatch, getState, { history }) => {
-    instance
-      .get(`/api/movies/${movieId}/comments/me`, {
-        headers: { authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        console.log(response, "내 코멘트 가져오기 성공");
-        // dispatch(getComment(response.data.comments));
-      })
-      .catch((error) => {
-        console.log(error, "내 코멘트 가져오기 오류");
       });
   };
 };
@@ -69,16 +53,36 @@ export const getCommentDB = (movieId) => {
 export const getCommentListDB = (movieId) => {
   return (dispatch, getState, { history }) => {
     instance
-      .get(`/api/movies/${movieId}/comments/me`)
-      .then((res) => {
-        console.log(res, "전체 코멘트 가져오기 성공");
-        // dispatch(getComment(res.data.comments));
+      .get(`/api/movies/${movieId}/comments`)
+      .then((response) => {
+        // console.log(response, "전체 코멘트 가져오기 성공");
+        // console.log(response.data)
+        dispatch(getCommentList(response.data));
       })
-      .catch((err) => {
-        console.log(err, "전체 코멘트 가져오기 오류");
+      .catch((error) => {
+        console.log(error.response.data.errorMessage);
+        console.log(error, "전체 코멘트 가져오기 오류");
       });
   };
 };
+export const getCommentDB = (movieId) => {
+  return (dispatch, getState, { history }) => {
+    instance
+      .get(`/api/movies/${movieId}/comments/me`,
+      { headers: { authorization: `Bearer ${token}` } }
+      )
+      .then((response) => {
+        console.log(response.data)
+        console.log(response, "내 코멘트 가져오기 성공");
+        dispatch(getComment(response.data));
+      })
+      .catch((error) => {
+        console.log(error.response.data.errorMessage);
+        console.log(error, "내 코멘트 가져오기 오류");
+      });
+  };
+};
+
 export const updateCommentDB = (commentId, comment) => {
   return (dispatch, getState, { history }) => {
     instance
@@ -128,11 +132,11 @@ export default handleActions(
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         // 내 댓글이 어떤 형식으로 들어오는지 확인하고 저장어떻게 할지 생각해봐야함
-        return { ...state, list: action.payload.comments };
+        return { ...state, mylist: action.payload.comment};
       }),
     [GET_COMMENTLIST]: (state, action) =>
       produce(state, (draft) => {
-        return { ...state, list: action.payload.comments };
+        return { ...state, list: action.payload.comments};
       }),
     [UPDATE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
@@ -147,6 +151,7 @@ export default handleActions(
         draft.list = draft.list.filter(
           (e) => e._id !== action.payload.commentId
         );
+        draft.mylist = "";
       }),
   },
   initialState
@@ -154,13 +159,13 @@ export default handleActions(
 
 const actionCreators = {
   addComment,
-  getComment,
   getCommentList,
+  getComment,
   updateComment,
   deleteComment,
   addCommentDB,
-  getCommentDB,
   getCommentListDB,
+  getCommentDB,
   updateCommentDB,
   deleteCommentDB,
 };

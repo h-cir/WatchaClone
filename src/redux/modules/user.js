@@ -70,13 +70,13 @@ const signUpDB = (userId, password, userName) => {
 //   };
 // };
 
-// const logoutDB = () => {
-//   return function (dispatch, getState, { history }) {
-//     dispatch(logOut());
-//     history.replace("/");
-//     //replace는 push와 달리 뒤로가기해도 원래 페이지가 나오지 않음.
-//   };
-// };
+const logoutDB = () => {
+  return function (dispatch, getState, { history }) {
+    dispatch(logOut());
+    history.replace("/");
+    //replace는 push와 달리 뒤로가기해도 원래 페이지가 나오지 않음.
+  };
+};
 
 // //reducer
 // //produce (immer) 이용하여 불변성 유지
@@ -100,11 +100,11 @@ export default handleActions(
 // action creator export
 
 const actionCreators = {
-//   logOut,
+  logOut,
 //   getUser,
   loginDB,
   signUpDB,
-//   logoutDB,
+  logoutDB,
 //   idDuplcheckDB,
 //   nickDuplcheckDB,
 };

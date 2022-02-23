@@ -6,18 +6,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 
-const CommentMy = () => {
+const CommentMy = (props) => {
   const params = useParams();
   const dispatch = useDispatch();
-//   React.useEffect(() => {
-//     dispatch(commentActions.getCommentDB(params.movieid));
-//   }, []);
+  React.useEffect(() => {
+    dispatch(commentActions.getCommentDB(params.movieid));
+  }, []);
   const myCommentList = useSelector((state) => state.comment.mylist);
   console.log(myCommentList)
 
+  // let Not_comment = myCommentList === {message: '댓글이 없습니다.'} ? true : false;
+  // console.log(Not_comment)
   const deleteComment = () => {
     dispatch(commentActions.deleteCommentDB(myCommentList.commentId));
   };
+
+  // return(
+  //   <></>
+  // )
+  // if(my_comment === true)
   return (
     <React.Fragment>
       <SectionBlock>
@@ -81,7 +88,7 @@ const CommentMy = () => {
       </SectionBlock>
     </React.Fragment>
   );
-};;
+};
 
 const SectionBlock = styled.div`
   @media (min-width: 719px) {

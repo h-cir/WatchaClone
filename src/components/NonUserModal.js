@@ -89,20 +89,4 @@ const NouUserModal = () => {
   );
 };
 
-const Input = styled.input`
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  background: rgb(245, 245, 245);
-  box-sizing: border-box;
-  width: 100%;
-  height: 44px;
-  padding: 0px 12px;
-  border-radius: 6px;
-  border: none;
-  :focus {
-    outline: none;
-  }
-  caret-color: red;
-`;
 export default NouUserModal;

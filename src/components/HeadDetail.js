@@ -12,16 +12,18 @@ const HeadDetail = (props) => {
     const starInfo = useSelector((state) => state.star.infoList)
 
     React.useEffect(() => {
-  
-        if (userInfo[movieId] && userInfo[movieId][1] === 0) {
-          setToggle(true);
-        } else {
-          setToggle(false);
+        if (!token){
+            setToggle(true)
+        } else if (userInfo[movieId] && userInfo[movieId][1] === 0) {
+            setToggle(true);
+        } else if (userInfo[movieId] && userInfo[movieId][1] !== 0) {
+            setToggle(false)
         }
+       
       },);
     
     const list = props
-    const [toggle, setToggle] = React.useState(false);
+    const [toggle, setToggle] = React.useState(true);
     return (
         <>
         <HeaderSection>

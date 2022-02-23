@@ -1,0 +1,20 @@
+.nextArrowBox {
+  position: absolute;
+  top: 30%;
+  left: 93%;
+  width: 40px;
+
+  .nextArrow {
+    position: absolute;
+    width: 100%;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .nextArrow:hover {
+    opacity: 50%;
+    box-shadow: 0 0 0.5px 0;
+    border-radius: 50%;
+    position: absolute;
+  }
+
+}

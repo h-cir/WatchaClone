@@ -79,7 +79,7 @@ const Main = (props) => {
                     <ListFrame>
                       <StyledSlider {...settings}>
                         {movieList.map((v, i) => {
-                         
+  
                           return (
                             v.category.includes(category[idx]) ? <MovieCard key={i} {...v}/> : null
                           )

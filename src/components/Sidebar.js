@@ -3,30 +3,11 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import NextArrow from "../arrow/NextArrow"
+import PrevArrow from "../arrow/PrevArrow"
 const Sidebar = (props) => {
     const list = props
- 
-    const NextArrow = (props) => {
-        const { className, style, onClick } = props;
-        return (
-            <div
-                className={className}
-                style={{ ...style, display: "block" }}
-                onClick={onClick}
-            />
-        );
-    };
-    const PrevArrow = (props) => {
-        const { className, style, onClick } = props;
-        return (
-            <div
-                className={className}
-                style={{ ...style, display: "block" }}
-                onClick={onClick}
-            />
-        );
-    };
+
     const settings = {
         dots: false,
         infinite: false,
@@ -35,6 +16,7 @@ const Sidebar = (props) => {
         slidesToScroll: 2,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
+       
     };
     return (
         <>
@@ -73,7 +55,7 @@ const Sidebar = (props) => {
             </div>
 
 
-                                                   
+
             <BottomGallery>
                 <div style={{ margin: "0px 20px" }}>
                     <header style={{ overflow: "hidden" }}>
@@ -91,14 +73,14 @@ const Sidebar = (props) => {
                                     <Container>
                                         <StyledSlider {...settings} >
                                             {list.videoUrls && list.videoUrls.map((v, idx) => {
-                                                    const url = v.url
-                                                    const youtube_id = url.split('=')[1] 
-                                                    const thumbnail = `https://img.youtube.com/vi/${youtube_id}/0.jpg`
+                                                const url = v.url
+                                                const youtube_id = url.split('=')[1]
+                                                const thumbnail = `https://img.youtube.com/vi/${youtube_id}/0.jpg`
                                                 return (
                                                     <BottomVideo6 key={idx}>
                                                         <BottomNewVideo href={v.url}>
                                                             <BottomNewVideoVideo>
-                                                                <BottomNewVideoVideo2 src={thumbnail}/>
+                                                                <BottomNewVideoVideo2 src={thumbnail} />
                                                                 <BottomNewVideoVideo3>
                                                                     <BottomNewVideoVideo4 />
                                                                 </BottomNewVideoVideo3>
@@ -106,7 +88,7 @@ const Sidebar = (props) => {
                                                         </BottomNewVideo>
                                                         <BottomNewVideoText>
                                                             <div style={{ margin: "8px 0px 0px", maxHeight: "40px", margin: "0px", overflow: "hidden" }}>
-                                                                <div  style={{ whiteSpace: "pre-wrap" }}>{v.title}</div>
+                                                                <div style={{ whiteSpace: "pre-wrap" }}>{v.title}</div>
                                                             </div>
                                                         </BottomNewVideoText>
                                                     </BottomVideo6>
@@ -127,47 +109,34 @@ const Sidebar = (props) => {
 }
 
 const BottomContentBasicInfo = styled.div`
+font-size: 19px;
+font-weight: 700;
+letter-spacing: -0.7px;
+line-height: 28px;
+margin-block-start: 0.83em;
+margin-block-end: 0.83em;
+
+`
+
+const BottomGallery = styled.div`
+padding: 8px 0px 0px;
+`
+
+const BottomGalleryh2 = styled.h2`
+float: left;
 color: rgb(0, 0, 0);
 font-size: 19px;
 font-weight: 700;
 letter-spacing: -0.7px;
 line-height: 28px;
 margin: 8px 0px;
-margin-block-start: 0.83em;
-margin-block-end: 0.83em;
-margin-inline-start: 0px;
-margin-inline-end: 0px;
-`
-
-const BottomSideTwo = styled.div`
-border: 1px solid;
-border-radius: 6px;
-background: rgb(255, 255, 255);
-overflow: hidden;
-border-color: rgb(227, 227, 227) !important;
-`
-const BottomGallery = styled.div`
-padding: 8px 0px 0px;
-`
-const BottomVideo = styled.div`
-padding: 8px 0px 0px;
-`
-
-const BottomGalleryh2 = styled.h2`
-float: left;
-    color: rgb(0, 0, 0);
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: -0.7px;
-    line-height: 28px;
-    margin: 8px 0px;
  `
 
 const BottomVideo2 = styled.div`
  overflow: hidden;
  padding: 0px 5px;
  margin: 0px -5px;
-}
+
  `
 const BottomVideo3 = styled.div`
  transform: translateX(0px);
@@ -182,7 +151,6 @@ const BottomVideo5 = styled.ul`
 list-style: none;
 padding: 0px;
 white-space: nowrap;
-margin-top: 5px;
 margin-bottom: 25px;
 margin-right: -5px !important;
 margin-left: -5px !important;
@@ -195,7 +163,6 @@ display: inline-block;
 vertical-align: top;
 box-sizing: border-box;
 padding: 0px 5px;
-width: 50%;
 `
 
 const BottomVideo7 = styled.div`
@@ -268,49 +235,31 @@ letter-spacing: -0.5px;
 line-height: 20px;
 margin-top: 2px
 `
+
 const StyledSlider = styled(Slider)`
-.slick-prev, .slick-next {
-    font-size: 0;
-    line-height: 0;
-    position: absolute;
-    top: 40%;
-    display: block;
-    padding: 0;
-    transform: translate(0, -50%);
-    cursor: pointer;
-    color: transparent;
-    border: none;
-    outline: none;
-    background: transparent;
-}
   .slick-arrow {
     z-index: 50;
   }
   .slick-next {
-    right: -20px;
+    right: 0px
   }
   .slick-prev {
-    left: -30px;
+    left: -10px
   }
   .slick-prev.slick-disabled:before,
   .slick-next.slick-disabled:before {
     opacity: 0;
   }
-  .slick-prev:before {
-    content: "←";
-  }
+
   .slick-prev:before,
   .slick-next:before {
-    font-family: "slick";
-    font-size: 31px;
-    line-height: 1;
-    opacity: 0.75;
+    font-size: 30px;
+    opacity: 1;
     color: gray;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
+
 `;
 const Container = styled.div`
-  width: 280px;
+  width: 100%;
 `;
 export default Sidebar

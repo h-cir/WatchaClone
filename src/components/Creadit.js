@@ -35,6 +35,7 @@ const Creadit = (props) => {
         slidesToShow: 2,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
+        
     };
 
     return (
@@ -170,49 +171,33 @@ text-overflow: ellipsis;
 `
 
 const StyledSlider = styled(Slider)`
-.slick-prev, .slick-next {
-    font-size: 0;
-    line-height: 0;
-    position: absolute;
-    top: 40%;
-    display: block;
-    padding: 0;
-    transform: translate(0, -50%);
-    cursor: pointer;
-    color: transparent;
-    border: none;
-    outline: none;
-    background: transparent;
-}
-  .slick-arrow {
+.slick-arrow {
     z-index: 50;
   }
   .slick-next {
-    right: -20px;
+    right: 0px
   }
   .slick-prev {
-    left: -30px;
+    left: -15px
   }
   .slick-prev.slick-disabled:before,
   .slick-next.slick-disabled:before {
     opacity: 0;
   }
-  .slick-prev:before {
-    content: "←";
-  }
+
   .slick-prev:before,
   .slick-next:before {
-    font-family: "slick";
-    font-size: 31px;
-    line-height: 1;
-    opacity: 0.75;
+    font-size: 30px;
+    opacity: 1;
     color: gray;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    
   }
+ 
+   
+}
 `;
 const Container = styled.div`
-  width: 590px;
+  width: 600px;
 `;
 
 export default Creadit

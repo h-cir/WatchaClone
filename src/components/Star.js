@@ -39,6 +39,7 @@ const Star = (props) => {
         if (!token) {
             return alert("로그인을 해주세요");
         }
+        
         if (userInfo[movieId] && userInfo[movieId][1] == 0) {
             dispatch(starActions.addStarDB(value, movieId, token))
         } else {

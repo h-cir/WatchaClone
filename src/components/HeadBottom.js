@@ -6,14 +6,15 @@ import CommentBox from "./CommentBox";
 import CommentMy from "./CommentMy";
 import StarBar from "./StarBar";
 
+
 const HeaderBottom = (props) => {
     const list = props
-    
+ 
     return (
         <Bottom>
             <BottomInner>
                 <BottomContent>
-                <CommentMy/>
+                    <CommentMy />
                     <BottomContentLeft>
                         <div style={{ padding: "8px 0px 0px" }}>
                             <div style={{ margin: "0px 20px" }}>
@@ -41,20 +42,20 @@ const HeaderBottom = (props) => {
                             </div>
                             <hr style={{ border: "0", borderBottom: "1px solid #f0f0f0", margin: "24px 20px 0 20px" }} />
                         </div>
-                
+
                         <Creadit {...list} />
-                        <StarBar {...list}/>
-                        
-                        <CommentBox/>
+                        <StarBar {...list} />
+
+                        <CommentBox />
                     </BottomContentLeft>
                 </BottomContent>
-                
+
                 <BottomSide>
-                    <BottomContentLeft>
-                        <Sidebar {...list}/>
-                    </BottomContentLeft>
+                    <BottomContentRight>
+                        <Sidebar {...list} />
+                    </BottomContentRight>
                 </BottomSide>
-         
+
             </BottomInner>
         </Bottom>
     )
@@ -144,10 +145,23 @@ const BottomSide = styled.div`
 @media only screen and (max-width: 1023px) {
     display:none
     }  
-width: 320px;
+max-width: 350px;
 padding: 0px 8px;
 display: table-cell
-
 `
+const BottomContentRight = styled.div`
+border-right: 1px solid;
+border-left: 1px solid;
+border-top: 1px solid;
+border-bottom: 1px solid;
+border-top-left-radius: 6px;
+border-top-right-radius: 6px;
+border-bottom-left-radius: 6px;
+border-bottom-right-radius: 6px;
+background: rgb(255, 255, 255);
+overflow: hidden;
+border-color: rgb(227, 227, 227) !important;
+`
+
 
 export default HeaderBottom

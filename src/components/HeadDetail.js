@@ -3,18 +3,22 @@ import styled from "styled-components";
 import Star from "./Star"
 import CommentModal from "./CommentModal";
 import { useSelector, useDispatch } from "react-redux";
+
+
 const HeadDetail = (props) => {
     const movieId = props.movieId
     const token = localStorage.getItem("is_login")
     const userInfo = useSelector((state) => state.star.list)
-    
+    const starInfo = useSelector((state) => state.star.infoList)
+
     React.useEffect(() => {
+  
         if (userInfo[movieId] && userInfo[movieId][1] === 0) {
           setToggle(true);
         } else {
           setToggle(false);
         }
-      });
+      },);
     
     const list = props
     const [toggle, setToggle] = React.useState(false);
@@ -45,7 +49,7 @@ const HeadDetail = (props) => {
                         <HeaderBottomLeft>
                             <Title>{list.title}</Title>
                             <Detail>{list.genre}</Detail>
-                            <ContentRating>평균 ★4.1 (9,644명)</ContentRating>
+                            <ContentRating>평균 ★{starInfo.averageStar && starInfo.averageStar.toFixed(1)} ({starInfo.numRatings}명)</ContentRating>
                             <ConetentAction>
                                 <ConetentActionOne>
                                     <ConetentActionpyungga>

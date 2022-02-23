@@ -4,6 +4,7 @@ import Creadit from "./Creadit";
 import Sidebar from "./Sidebar";
 import CommentBox from "./CommentBox";
 import CommentMy from "./CommentMy";
+import StarBar from "./StarBar";
 
 const HeaderBottom = (props) => {
     const list = props
@@ -40,35 +41,14 @@ const HeaderBottom = (props) => {
                             </div>
                             <hr style={{ border: "0", borderBottom: "1px solid #f0f0f0", margin: "24px 20px 0 20px" }} />
                         </div>
-
                 
                         <Creadit {...list} />
+                        <StarBar {...list}/>
                         
-                        <div style={{ padding: "8px 0px 0px" }}>
-                            <div>
-                                <div style={{ margin: "0 20px", overflow: "hidden" }}>
-                                    <h2 style={{ float: "left", fontSize: "19px", fontWeight: "700", letterSpacing: "0,7px", lineHeight: "28px", margin: "8px 0" }}>
-                                        별점그래프
-                                    </h2>
-                                    <span style={{ float: "right", color: "#282828", fontSize: "17px", fontWeight: "400", letterSpacing: "0,7px", lineHeight: "22px", textAlign: "right", margin: "10px 0 0" }}>
-                                        평균★2.8
-                                        <br />
-                                        <strong style={{ fontSize: "14px", fontWeight: "400", letterSpacing: "-0.3px", lineHeight: "19px", color: "#787878" }}>
-                                            (1,568명)
-                                        </strong>
-                                    </span>
-                                </div>
-                            </div>
-                            <div>
-                                <div style={{ margin: "0 20px" }}>
-                                    <div style={{ maxWidth: "375px", margin: "58px auto 0" }}></div>
-                                </div>
-                                <hr style={{ border: "0", borderBottom: "1px solid #f0f0f0", margin: "24px 20px 0 20px" }} />
-                            </div>
-                        </div>
                         <CommentBox/>
                     </BottomContentLeft>
                 </BottomContent>
+                
                 <BottomSide>
                     <BottomContentLeft>
                         <Sidebar {...list}/>

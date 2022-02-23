@@ -6,6 +6,7 @@ import instance from "../../shared/Request";
 const SET_STAR = "SET_STAR";
 const ADD_STAR = "ADD_STAR";
 const CANCEL_STAR = "CANCEL_STAR";
+const INFO_STAR = "INFO_STAR";
 
 const setStar = createAction(SET_STAR, (movieId, user_list) => ({
   movieId,
@@ -21,8 +22,15 @@ const cancelStar = createAction(CANCEL_STAR, (movieId) => ({
   movieId,
 }));
 
+const infoStar = createAction(INFO_STAR, (starInfo) => ({
+  starInfo,
+}));
+
+
 const initialState = {
   list: {},
+  infoList: {}
+  ,
 };
 
 // *************************************꼭! 배열로 수정 const user_list = [] **************************************************
@@ -79,6 +87,20 @@ const cancelStarDB = (movieId, token) => {
   };
 };
 
+const infoStarDB = (movieId) => {
+  return function (dispatch, getState, { history }) {
+    instance.get(`/api/movies/${movieId}/stars`,
+      {},
+    ).then((res) => {
+      const starInfo = res.data
+      dispatch(infoStar(starInfo))
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
 export default handleActions(
   {
     [SET_STAR]: (state, action) =>
@@ -91,11 +113,11 @@ export default handleActions(
       }),
     [CANCEL_STAR]: (state, action) =>
       produce(state, (draft) => {
-        // console.log(draft.list[action.payload.movieId])
-        // draft.list[action.payload.movieId] = draft.list[
-        //   action.payload.movieId
-        // ].filter((l) => l !== action.payload.token);
         draft.list[action.payload.movieId][1] = 0;
+      }),
+    [INFO_STAR]: (state, action) =>
+      produce(state, (draft) => {
+        draft.infoList = action.payload.starInfo
       }),
   },
   initialState
@@ -107,7 +129,8 @@ const actionCreators = {
   setStar,
   addStar,
   cancelStar,
-  cancelStarDB
+  cancelStarDB,
+  infoStarDB
 };
 
 export { actionCreators };

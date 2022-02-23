@@ -7,8 +7,6 @@ import "slick-carousel/slick/slick-theme.css";
 const Creadit = (props) => {
     const list = props
   
-
-
     const NextArrow = (props) => {
         const { className, style, onClick } = props;
         return (

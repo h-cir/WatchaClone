@@ -8,13 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 import MovieCard from "../components/MovieCard";
 import { actionCreators as movieActions } from "../redux/modules/movie";
 
-const Main = () => {
-  const dispatch = useDispatch();
-  const movieList = useSelector((state) => state.movie.list);
-  
-  React.useEffect(() => {
-    dispatch(movieActions.getMovieListDB());
-  }, []);
+const Main = (props) => {
+
   const NextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -61,27 +56,42 @@ const Main = () => {
     //   },
     // ]
   };
+
+  const dispatch = useDispatch();
+  const movieList = useSelector((state) => state.movie.list);
+  React.useEffect(() => {
+    dispatch(movieActions.getMovieListDB());
+  }, []);
+  const category = [ "popular", "top_rated","now_playing", "upcoming"];
+
   return (
     <React.Fragment>
       <Section>
-        <RankingBox>
-          <RankingTitle>
-            <p>샘플 목록 20개</p>
-          </RankingTitle>
-          <Frame>
-            <Frame2>
-              <Tran>
-                <ListFrame>
-                  <StyledSlider {...settings}>
-                    {movieList.map((v, i) => {
-                      return <MovieCard key={i} {...v}/>;
-                    })}
-                  </StyledSlider>
-                </ListFrame>
-              </Tran>
-            </Frame2>
-          </Frame>
-        </RankingBox>
+        {category.map((e, idx) => {
+          return (
+            <RankingBox key={idx}>
+              <RankingTitle>
+                <p>{e}</p>
+              </RankingTitle>
+              <Frame>
+                <Frame2>
+                  <Tran>
+                    <ListFrame>
+                      <StyledSlider {...settings}>
+                        {movieList.map((v, i) => {
+                         
+                          return (
+                            v.category.includes(category[idx]) ? <MovieCard key={i} {...v}/> : null
+                          )
+                        })}
+                      </StyledSlider>
+                    </ListFrame>
+                  </Tran>
+                </Frame2>
+              </Frame>
+            </RankingBox>
+          );
+        })}
       </Section>
     </React.Fragment>
   );
@@ -168,7 +178,8 @@ const ListFrame = styled.div`
   }
 `;
 const StyledSlider = styled(Slider)`
-.slick-prev, .slick-next {
+  .slick-prev,
+  .slick-next {
     font-size: 0;
     line-height: 0;
     position: absolute;
@@ -181,7 +192,7 @@ const StyledSlider = styled(Slider)`
     border: none;
     outline: none;
     background: transparent;
-}
+  }
   .slick-arrow {
     z-index: 50;
   }

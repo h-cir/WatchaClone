@@ -2,24 +2,27 @@ import React from "react";
 import styled from "styled-components";
 import { Grid, Text } from "../elementsJ";
 import { useHistory } from "react-router";
-import { useDispatch,useSelector } from "react-redux";
-import { useParams} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { actionCreators as commentActions } from "../redux/modules/comment";
+import { actionCreators as likeActions } from "../redux/modules/like";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Like from "./Like"
 
 const CommentBox = (props) => {
   const params = useParams();
+  const movieId = params.movieid;
   const dispatch = useDispatch();
-//   console.log(params)
-// console.log(params.movieid)
-React.useEffect(() => {
-  dispatch(commentActions.getCommentListDB(params.movieid));
-}, []);
+  const commentList = useSelector((state) => state.comment.list);
+  console.log(commentList);
 
-const commentList = useSelector((state) => state.comment.list);
-console.log(commentList)
+  React.useEffect(() => {
+    dispatch(commentActions.getCommentListDB(movieId));
+  }, []);
+  const LikeComment = () => {
+  };
 
   const NextArrow = (props) => {
     const { className, style, onClick } = props;
@@ -84,58 +87,73 @@ console.log(commentList)
             </span>
           </header>
         </div>
-        <div style={{ overflow: "hidden", padding: "0 5px"}}>
-            <ul
-              style={{
-                listStyle: "none",
-                padding: "0px",
-                whiteSpace: "nowrap",
-                marginRight: "-5px !important",
-                marginLeft: "-5px !important",
-                margin:"14px 20px 30px",
-              }}
-            >
-              <Container>
-                <StyledSlider {...settings}>
+        <div style={{ overflow: "hidden", padding: "0 5px" }}>
+          <ul
+            style={{
+              listStyle: "none",
+              padding: "0px",
+              whiteSpace: "nowrap",
+              marginRight: "-5px !important",
+              marginLeft: "-5px !important",
+              margin: "14px 20px 30px",
+            }}
+          >
+            <Container>
+              <StyledSlider {...settings}>
                 {commentList.map((e, i) => {
+                  console.log(e)
                   return (
-                      <CommentCardFrame key={i}>
-                        <UserFrame>
-                          <User>
-                            <p>{e.userId}</p>
-                          </User>
-                          <StarFrame>
-                            <img
-                              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM0QTRBNEEiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyIDE3Ljk4bC02LjAxNSA0LjM5MmMtLjUwOC4zNzItMS4xOTQtLjEyNi0uOTk4LS43MjVsMi4zMTctNy4wODEtNi4wMzUtNC4zNjdjLS41MS0uMzY5LS4yNDctMS4xNzUuMzgyLTEuMTc0bDcuNDQ3LjAxNiAyLjI4Ni03LjA5MWMuMTkyLS42IDEuMDQtLjYgMS4yMzMgMGwyLjI4NiA3LjA5IDcuNDQ3LS4wMTVjLjYyOS0uMDAxLjg5LjgwNS4zOCAxLjE3NGwtNi4wMzMgNC4zNjcgMi4zMTYgNy4wOGMuMTk2LjYtLjQ5IDEuMDk4LS45OTkuNzI2TDEyIDE3Ljk4eiIvPgo8L3N2Zz4K"
-                              width="16px"
-                              height="16px"
-                              alt="star"
-                            />
-                            <span>2.0</span>
-                          </StarFrame>
-                        </UserFrame>
-                        <CommentFrame>
-                          <CommentBoard>
-                            <p>{e.comment}</p>
-                          </CommentBoard>
-                          {/* </a> */}
-                        </CommentFrame>
-                        <LikesFrame>
-                          <ThumsUp></ThumsUp>
-                          <em>{e.countLikes}</em>
-                          {/* 대댓글 갯수 */}
-                          {/* <span></span>
+                    <CommentCardFrame key={i}>
+                      <UserFrame>
+                        <User>
+                          <p>{e.userId}</p>
+                        </User>
+                        <StarFrame>
+                          <img
+                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM0QTRBNEEiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyIDE3Ljk4bC02LjAxNSA0LjM5MmMtLjUwOC4zNzItMS4xOTQtLjEyNi0uOTk4LS43MjVsMi4zMTctNy4wODEtNi4wMzUtNC4zNjdjLS41MS0uMzY5LS4yNDctMS4xNzUuMzgyLTEuMTc0bDcuNDQ3LjAxNiAyLjI4Ni03LjA5MWMuMTkyLS42IDEuMDQtLjYgMS4yMzMgMGwyLjI4NiA3LjA5IDcuNDQ3LS4wMTVjLjYyOS0uMDAxLjg5LjgwNS4zOCAxLjE3NGwtNi4wMzMgNC4zNjcgMi4zMTYgNy4wOGMuMTk2LjYtLjQ5IDEuMDk4LS45OTkuNzI2TDEyIDE3Ljk4eiIvPgo8L3N2Zz4K"
+                            width="16px"
+                            height="16px"
+                            alt="star"
+                          />
+                          <span>2.0</span>
+                        </StarFrame>
+                      </UserFrame>
+                      <CommentFrame>
+                        <CommentBoard>
+                          <p>{e.comment}</p>
+                        </CommentBoard>
+                      </CommentFrame>
+                      <LikesFrame>
+                        <ThumsUp></ThumsUp>
+                        <em>{e.countLikes}</em>
+                        {/* 대댓글 갯수 */}
+                        {/* <span></span>
           <em>0</em> */}
-                        </LikesFrame>
-                        <LikeButtonFrame>
-                          <LikeButton>좋아요</LikeButton>
-                        </LikeButtonFrame>
-                      </CommentCardFrame>
+                      </LikesFrame>
+                      <Like commentId={e.commentId} userId={e.userId}/>
+                      {/* <LikeButtonFrame>
+                        <LikeButton
+                          onClick={() => {
+                            LikeComment();                         
+                          }}
+                        >
+                          좋아요
+                        </LikeButton>
+                        <UnlikeButton
+                          onClick={() => {
+                            // deleteComment();                            
+                          }}
+                        >
+                          좋아요
+                        </UnlikeButton>
+
+                      </LikeButtonFrame> */}
+                    </CommentCardFrame>
                   );
                 })}
               </StyledSlider>
-              </Container>
-            </ul>
+            </Container>
+          </ul>
         </div>
       </div>
     </React.Fragment>
@@ -307,22 +325,34 @@ const LikeButtonFrame = styled.div`
   padding: 9.5px 0px;
   margin: 0px -4px;
 `;
+
 const LikeButton = styled.button`
+  background: rgb(255, 47, 110);
+  color: rgb(255, 47, 110);
+  border-radius: 3px;
   background: none;
   border: none;
   margin: 0px;
   cursor: pointer;
-  color: rgb(255, 47, 110);
   font-size: 17px;
   font-weight: 400;
   letter-spacing: -0.7px;
   line-height: 22px;
   padding: 2px 8px;
-
-  /* 클릭시 */
-  /* background: rgb(255, 47, 110);
-    color: rgb(255, 255, 255);
-    border-radius: 3px; */
+`;
+//이미 좋아요이면 이 버튼
+const UnlikeButton = styled.button`
+  border: none;
+  margin: 0px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.7px;
+  line-height: 22px;
+  padding: 2px 8px;
+  background: rgb(255, 47, 110);
+  color: rgb(255, 255, 255);
+  border-radius: 3px;
 `;
 
 export default CommentBox;

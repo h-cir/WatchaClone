@@ -17,7 +17,7 @@ const MovieCard = (props) => {
               alt=""
             />
           </Poster>
-          <Rranking>1</Rranking>
+          {/* <Rranking>1</Rranking> */}
         </PosterBox>
         <Info>
           <Title>{props.title}</Title>

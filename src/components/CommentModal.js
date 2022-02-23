@@ -37,8 +37,8 @@ const CommentModal = (props) => {
   // console.log(params);
   // console.log(props);
   const title = props.movieTitle;
-  console.log(title);
-  console.log(params.movieid);
+  // console.log(title);
+  // console.log(params.movieid);
 
   const [comment, setComment] = React.useState("");
   const changeComment = (e) => {
@@ -47,9 +47,9 @@ const CommentModal = (props) => {
   const addComment = () => {
     dispatch(commentActions.addCommentDB(params.movieid, comment));
   };
-  // React.useEffect(() => {
-  //   dispatch(commentActions.getCommentDB(params.movieid));
-  // }, []);
+  React.useEffect(() => {
+    dispatch(commentActions.getCommentDB(params.movieid));
+  }, []);
 
   return (
     <div>
@@ -115,6 +115,7 @@ const CommentModal = (props) => {
             <SaveButton
               onClick={() => {
                 addComment();
+                history.go(0);
               }}
             >
               저장

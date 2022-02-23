@@ -5,13 +5,11 @@ import { produce } from "immer";
 const token = localStorage.getItem("is_login");
 
 //action
-const ADD_COMMENT = "COMMENT_ADD";
-const GET_COMMENTLIST = "COMMENTLIST_GET";
-const GET_COMMENT = "COMMENT_GET";
-const UPDATE_COMMENT = "COMMENT_UPDATE";
-const DELETE_COMMENT = "COMMENT_DELETE";
-const LIKE_COMMENT = "COMMENT_LIKE";
-const UNLIKE_COMMENT = "COMMETN_UNLIKE"
+const ADD_COMMENT = "ADD_COMMENT";
+const GET_COMMENTLIST = "GET_COMMENTLIST";
+const GET_COMMENT = "GET_COMMENT";
+const UPDATE_COMMENT = "UPDATE_COMMENT";
+const DELETE_COMMENT = "DELETE_COMMENT";
 
 //action creator
 const addComment = createAction(ADD_COMMENT, (comments) => ({ comments }));
@@ -19,8 +17,6 @@ const getCommentList = createAction(GET_COMMENTLIST, (comments) => ({ comments }
 const getComment = createAction(GET_COMMENT, (comment) => ({ comment }));
 const updateComment = createAction(UPDATE_COMMENT, (commentId, comment) => ({ commentId, comment }));
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({ commentId }));
-const likeComment = createAction(LIKE_COMMENT, (commentId) => ({ commentId,  }));
-const unlikeComment = createAction(UNLIKE_COMMENT, (commentId) => ({ commentId,  }));
 
 //initialState
 const initialState = {
@@ -31,21 +27,19 @@ const initialState = {
 export const addCommentDB = (movieId, comment) => {
   return (dispatch, getState, { history }) => {
     instance
-      .post(
-        `/api/movies/${movieId}/comments`,
+      .post(`/api/movies/${movieId}/comments`,
         {
           comment: comment,
         },
-        { headers: { authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
         console.log(response, "코멘트 작성 성공");
         console.log(response.data.message);
-        dispatch(addComment());
+        dispatch(addComment(comment));
       })
       .catch((error) => {
-        console.log(error.response.data.errorMessage);
-        console.log(error, "코멘트 작성 오류");
+        console.log(error,"코멘트 작성 오류");
       });
   };
 };
@@ -60,8 +54,7 @@ export const getCommentListDB = (movieId) => {
         dispatch(getCommentList(response.data));
       })
       .catch((error) => {
-        console.log(error.response.data.errorMessage);
-        console.log(error, "전체 코멘트 가져오기 오류");
+        console.log(error,"전체 코멘트 가져오기 오류");
       });
   };
 };
@@ -69,16 +62,14 @@ export const getCommentDB = (movieId) => {
   return (dispatch, getState, { history }) => {
     instance
       .get(`/api/movies/${movieId}/comments/me`,
-      { headers: { authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
-        console.log(response.data)
         console.log(response, "내 코멘트 가져오기 성공");
         dispatch(getComment(response.data));
       })
       .catch((error) => {
-        console.log(error.response.data.errorMessage);
-        console.log(error, "내 코멘트 가져오기 오류");
+        console.log(error.response.data.errorMessage,"내 코멘트 가져오기 오류");
       });
   };
 };
@@ -91,15 +82,14 @@ export const updateCommentDB = (commentId, comment) => {
         {
           comment: "123",
         },
-        { headers: { authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } ,}
       )
       .then((response) => {
         console.log(response);
         // dispatch(updateComment(commentId,comment))
       })
       .catch((error) => {
-        console.log(error, "코멘트 수정 오류");
-        window.alert(error.response.data.errorMessage);
+        window.alert(error.response.data.errorMessage,"코멘트 수정 오류");
       });
   };
 };
@@ -107,17 +97,15 @@ export const deleteCommentDB = (commentId) => {
   return (dispatch, getState, { history }) => {
     instance
       .delete(`/api/comments/${commentId}`, {
-        headers: { authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         console.log(response);
-        console.log(commentId);
         window.alert(response.data.message);
         dispatch(deleteComment(commentId));
       })
       .catch((error) => {
-        console.log(error, "코멘트 삭제 오류");
-        window.alert(error.response.data.errorMessage);
+        console.log(error.response.data.errorMessage,"코멘트 삭제 오류")
       });
   };
 };
@@ -147,7 +135,6 @@ export default handleActions(
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.commentId);
         draft.list = draft.list.filter(
           (e) => e._id !== action.payload.commentId
         );

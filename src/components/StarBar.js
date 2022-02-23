@@ -11,6 +11,7 @@ const StarBar = (props) => {
     React.useEffect(() => {
         dispatch(starActions.infoStarDB(movieId))
     }, [movieId]);
+
     //movieId를 넣는 이유는 새고고침할 때 한 번 불러와야하기 때문에!
     //[0]을 배열의 순서를 지정해줄때는 새로고침할때 불러오지 못하기 때문에 starInfo.countsPerStars를 넣어줌
     const data = [
@@ -35,6 +36,25 @@ const StarBar = (props) => {
             uv: (starInfo.countsPerStars && starInfo.countsPerStars[4]),
         },
     ];
+    const maxValue = Math.max.apply(null, starInfo.countsPerStars)
+    
+    const clone = (obj) => Object.assign({}, obj);
+    const renameKey = (object, key, newKey) => {
+        const clonedObj = clone(object);
+        const targetKey = clonedObj[key];
+        delete clonedObj[key];
+        clonedObj[newKey] = targetKey;
+        return clonedObj;
+    };
+
+    const highData = data.map((p, idx) => {
+        return (
+            p.uv === maxValue ? renameKey(p, 'uv', 'uv1')  : renameKey(p, 'uv', 'uv')
+        )
+    })
+ 
+    console.log(highData)
+
     return (
         <div style={{ padding: "8px 0px 0px" }}>
             <div>
@@ -54,9 +74,10 @@ const StarBar = (props) => {
             <div>
                 <div style={{ margin: "15px 20px 0px 20px" }}>
                     <div style={{ maxWidth: "375px", margin: "auto" }}>
-                        <BarChart width={375} height={200} data={data} >
-                            <XAxis stroke="none" dataKey="name" tick={{stroke: '#a0a0a0', fontSize:"12px", strokeWidth: 0.4}} />
-                            <Bar dataKey="uv" fill="#ffdd63" />
+                        <BarChart width={375} height={200} data={highData} >
+                            <XAxis stroke="none" dataKey="name" tick={{ stroke: '#a0a0a0', fontSize: "12px", strokeWidth: 0.4 }} />
+                            <Bar stackId="uv" dataKey="uv" fill="#ffdd63" />
+                            <Bar stackId="uv" dataKey="uv1" fill="#ffa136"/>
                         </BarChart>
                     </div>
 

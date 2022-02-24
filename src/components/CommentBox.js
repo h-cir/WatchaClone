@@ -102,12 +102,12 @@ const CommentBox = (props) => {
             <Container>
               <StyledSlider {...settings}>
                 {commentList && commentList.map((e, i) => {
-                  console.log(e)
+                   const user = e.userId.split("@")[0]
                   return (
                     <CommentCardFrame key={i}>
                       <UserFrame>
                         <User>
-                          <p>{e.userId}</p>
+                          <p>{user}</p>
                         </User>
                         <StarFrame>
                           <img

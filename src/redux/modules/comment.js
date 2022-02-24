@@ -12,7 +12,7 @@ const UPDATE_COMMENT = "UPDATE_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 
 //action creator
-const addComment = createAction(ADD_COMMENT, (comments) => ({ comments }));
+const addComment = createAction(ADD_COMMENT, (comments) => ({comments}));
 const getCommentList = createAction(GET_COMMENTLIST, (comments) => ({ comments }));
 const getComment = createAction(GET_COMMENT, (comment) => ({ comment }));
 const updateComment = createAction(UPDATE_COMMENT, (commentId, comment) => ({ commentId, comment }));
@@ -21,10 +21,11 @@ const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({ commentId }
 //initialState
 const initialState = {
   list: [],
+  mylist: [],
 };
 
 //axios
-export const addCommentDB = (movieId, comment) => {
+export const addCommentDB = (movieId,comment) => {
   return (dispatch, getState, { history }) => {
     instance
       .post(`/api/movies/${movieId}/comments`,
@@ -50,7 +51,6 @@ export const getCommentListDB = (movieId) => {
       .get(`/api/movies/${movieId}/comments`)
       .then((response) => {
         // console.log(response, "전체 코멘트 가져오기 성공");
-        // console.log(response.data)
         dispatch(getCommentList(response.data));
       })
       .catch((error) => {
@@ -65,7 +65,7 @@ export const getCommentDB = (movieId) => {
       { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
-        console.log(response, "내 코멘트 가져오기 성공");
+        // console.log(response, "내 코멘트 가져오기 성공");
         dispatch(getComment(response.data));
       })
       .catch((error) => {
@@ -80,13 +80,13 @@ export const updateCommentDB = (commentId, comment) => {
       .patch(
         `/api/comments/${commentId}`,
         {
-          comment: "123",
+          comment: comment,
         },
         { headers: { Authorization: `Bearer ${token}` } ,}
       )
       .then((response) => {
         console.log(response);
-        // dispatch(updateComment(commentId,comment))
+        dispatch(updateComment(commentId,comment))
       })
       .catch((error) => {
         window.alert(error.response.data.errorMessage,"코멘트 수정 오류");
@@ -101,7 +101,7 @@ export const deleteCommentDB = (commentId) => {
       })
       .then((response) => {
         console.log(response);
-        window.alert(response.data.message);
+        // window.alert(response.data.message);
         dispatch(deleteComment(commentId));
       })
       .catch((error) => {
@@ -115,7 +115,8 @@ export default handleActions(
   {
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(action.payload.comments);
+        const mylist = [];
+        draft.mylist.push(action.payload.comments);
       }),
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
@@ -128,10 +129,7 @@ export default handleActions(
       }),
     [UPDATE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        let idx = draft.list.findIndex(
-          (p) => p._id === action.payload.commentId
-        );
-        draft.list[idx] = { ...draft.list[idx], ...action.payload.comment };
+        draft.mylist.comment=action.payload.comment
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {

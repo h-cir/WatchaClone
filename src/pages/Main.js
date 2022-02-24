@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Text } from "../elementsJ";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -68,10 +67,11 @@ const Main = (props) => {
     <React.Fragment>
       <Section>
         {category.map((e, idx) => {
+          const cateName = ["인기 영화","높은 평점 영화","현재 상영 영화", "개봉 예정 영화"]
           return (
             <RankingBox key={idx}>
               <RankingTitle>
-                <p>{e}</p>
+                <p>{cateName[idx]}</p>
               </RankingTitle>
               <Frame>
                 <Frame2>
@@ -79,9 +79,8 @@ const Main = (props) => {
                     <ListFrame>
                       <StyledSlider {...settings}>
                         {movieList.map((v, i) => {
-  
                           return (
-                            v.category.includes(category[idx]) ? <MovieCard key={i} {...v}/> : null
+                            v.category.includes(category[idx]) ? <MovieCard key={i} {...v} idx={i+1}/> : null
                           )
                         })}
                       </StyledSlider>

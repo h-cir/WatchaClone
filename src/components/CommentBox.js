@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Grid, Text } from "../elementsJ";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -16,12 +15,14 @@ const CommentBox = (props) => {
   const movieId = params.movieid;
   const dispatch = useDispatch();
   const commentList = useSelector((state) => state.comment.list);
-  console.log(commentList);
+  // console.log(commentList);
+
 
   React.useEffect(() => {
     dispatch(commentActions.getCommentListDB(movieId));
   }, []);
   const LikeComment = () => {
+    dispatch(likeActions.likeCommentDB(props.commentId));
   };
 
   const NextArrow = (props) => {
@@ -100,8 +101,7 @@ const CommentBox = (props) => {
           >
             <Container>
               <StyledSlider {...settings}>
-                {commentList.map((e, i) => {
-                  console.log(e)
+                {commentList && commentList.map((e, i) => {
                   return (
                     <CommentCardFrame key={i}>
                       <UserFrame>
@@ -115,7 +115,7 @@ const CommentBox = (props) => {
                             height="16px"
                             alt="star"
                           />
-                          <span>2.0</span>
+                          <span>{e.commentStar}</span>
                         </StarFrame>
                       </UserFrame>
                       <CommentFrame>
@@ -126,28 +126,8 @@ const CommentBox = (props) => {
                       <LikesFrame>
                         <ThumsUp></ThumsUp>
                         <em>{e.countLikes}</em>
-                        {/* 대댓글 갯수 */}
-                        {/* <span></span>
-          <em>0</em> */}
                       </LikesFrame>
-                      <Like commentId={e.commentId} userId={e.userId}/>
-                      {/* <LikeButtonFrame>
-                        <LikeButton
-                          onClick={() => {
-                            LikeComment();                         
-                          }}
-                        >
-                          좋아요
-                        </LikeButton>
-                        <UnlikeButton
-                          onClick={() => {
-                            // deleteComment();                            
-                          }}
-                        >
-                          좋아요
-                        </UnlikeButton>
-
-                      </LikeButtonFrame> */}
+                      <Like commentId={e.commentId}/>
                     </CommentCardFrame>
                   );
                 })}
@@ -164,6 +144,13 @@ const Container = styled.div`
   width: 590px;
 `;
 const StyledSlider = styled(Slider)`
+.slick-slide {
+    float: left;
+    height: 100%;
+    min-height: 1px;
+    /* margin: 0px 5px; */
+    /* width: 32% !important; */
+} 
   .slick-prev,
   .slick-next {
     font-size: 0;
@@ -252,7 +239,7 @@ const StarFrame = styled.div`
   padding: 0px 8px;
   border: 1px solid rgb(234, 234, 234);
   border-radius: 13px;
-  margin: 15px 0px 0px 16px;
+  margin: 8px 0px 0px 16px;
   img {
     vertical-align: top;
     margin: 0px 3px 0px 0px;
@@ -266,14 +253,6 @@ const CommentFrame = styled.div`
   position: relative;
   height: 120px;
   margin: 12px 0px 15px;
-  a {
-    /* color: rgb(0, 0, 0);
-    text-decoration: none;
-}
-a {
-    background-color: transparent;
-} */
-  }
 `;
 const CommentBoard = styled.div`
   word-break: break-all;
@@ -308,51 +287,4 @@ const ThumsUp = styled.div`
   height: 18px;
   margin: 0px 3px;
 `;
-/* 대댓글 갯수 */
-/* span{
-    display: inline-block;
-background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM3ODc4NzgiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTkuODU3IDE3Ljc4Nkw2IDIxdi00LjkxYy0xLjg0MS0xLjM3My0zLTMuMzY5LTMtNS41OUMzIDYuMzU4IDcuMDMgMyAxMiAzczkgMy4zNTggOSA3LjVjMCA0LjE0Mi00LjAzIDcuNS05IDcuNS0uNzM5IDAtMS40NTYtLjA3NC0yLjE0My0uMjE0eiIvPgo8L3N2Zz4K) center center / contain no-repeat;
-width: 18px;
-height: 18px;
-margin: 0px 3px 0px 13px;
-} */
-
-const LikeButtonFrame = styled.div`
-  font-size: 17px;
-  font-weight: 400;
-  letter-spacing: -0.7px;
-  line-height: 22px;
-  padding: 9.5px 0px;
-  margin: 0px -4px;
-`;
-
-const LikeButton = styled.button`
-  background: rgb(255, 47, 110);
-  color: rgb(255, 47, 110);
-  border-radius: 3px;
-  background: none;
-  border: none;
-  margin: 0px;
-  cursor: pointer;
-  font-size: 17px;
-  font-weight: 400;
-  letter-spacing: -0.7px;
-  line-height: 22px;
-  padding: 2px 8px;
-`;
-//이미 좋아요이면 이 버튼
-const UnlikeButton = styled.button`
-  border: none;
-  margin: 0px;
-  cursor: pointer;
-  font-size: 17px;
-  font-weight: 400;
-  letter-spacing: -0.7px;
-  line-height: 22px;
-  padding: 2px 8px;
-  background: rgb(255, 47, 110);
-  color: rgb(255, 255, 255);
-  border-radius: 3px;
-`;
-
 export default CommentBox;

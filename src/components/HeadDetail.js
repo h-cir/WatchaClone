@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Star from "./Star"
 import CommentModal from "./CommentModal";
+import NonUserModal from "./NonUserModal";
 import { useSelector, useDispatch } from "react-redux";
 
 
@@ -70,7 +71,7 @@ const HeadDetail = (props) => {
 
                                 <ConetentActionTwo />
                                 <ConetentActionThree>
-                                        <CommentModal movieTitle={list.title}/>
+                                    {!token?  <NonUserModal/> : <CommentModal movieTitle={list.title}/>}
                                 </ConetentActionThree>
                             </ConetentAction>
                         </HeaderBottomLeft>

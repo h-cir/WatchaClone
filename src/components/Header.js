@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Text } from "../elementsJ";
 import Loginmodal from "./Loginmodal";
 import Signupmodal from "./Signupmodal";
 import Button from '@mui/material/Button';
@@ -182,21 +181,6 @@ const Frame = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   padding: 0px 4%;
-  /* padding: calc() */
-  /* -webkit-transition: background-color 200ms; */
-  /* transition: background-color 200ms; */
-  //투명할때
-  /* display: none;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 51;
-    background: transparent;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    width: 100%;
-    height: 62px;
-    transition: background-color 200ms ease 0s; */
   @media only screen and (max-width: 700px) {
     position: fixed;
     bottom: 0px;
@@ -206,16 +190,12 @@ const Frame = styled.div`
     box-sizing: border-box;
     height: 56px;
     padding: 8px 5% 4px;
-    /* padding: 8px 57px 4px; //반응형일때 */ 
     content: "";
-    /* background: #fff; */
-    /* height: env(safe-area-inset-bottom); */
   }
   div {
     display: flex;
   }
   svg {
-    /* min-height: 25px; */
     height:30px;
   }
 `;

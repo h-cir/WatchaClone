@@ -26,8 +26,6 @@ const loginDB = (userId, password) => {
         userId: userId, 
         password: password })
     .then((res) => {
-      window.alert("로그인이 되었습니다!")
-      window.location.reload()
     //   localStorage.setItem("user_nick", res.data.user_nick);
       localStorage.setItem("is_login", res.data.token);
       localStorage.setItem("userId", res.data.userId);

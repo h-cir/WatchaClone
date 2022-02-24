@@ -15,8 +15,6 @@ const CommentBox = (props) => {
   const movieId = params.movieid;
   const dispatch = useDispatch();
   const commentList = useSelector((state) => state.comment.list);
-  // console.log(commentList);
-  console.log(commentList)
   React.useEffect(() => {
     dispatch(commentActions.getCommentListDB(movieId));
   }, []);
@@ -195,11 +193,13 @@ const StyledSlider = styled(Slider)`
   }
 `;
 const CommentCardFrame = styled.div`
-  background-color: rgb(242, 242, 242);
-  box-sizing: border-box;
-  padding: 0px 12px;
-  border-radius: 6px;
-  overflow: hidden;
+    background-color: rgb(242,242,242);
+    box-sizing: border-box;
+    padding: 0px 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 0px 3px;
+    width: 98% !important
 `;
 const UserFrame = styled.div`
   display: flex;

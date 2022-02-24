@@ -69,7 +69,8 @@ export const getCommentDB = (movieId) => {
         dispatch(getComment(response.data));
       })
       .catch((error) => {
-        console.log(error.response.data.errorMessage,"내 코멘트 가져오기 오류");
+        console.log(error)
+        // console.log(error.response.errorMessage,"내 코멘트 가져오기 오류");
       });
   };
 };

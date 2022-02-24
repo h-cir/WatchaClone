@@ -71,7 +71,7 @@ const HeadDetail = (props) => {
 
                                 <ConetentActionTwo />
                                 <ConetentActionThree>
-                                    {!token?  <NonUserModal/> : <CommentModal movieTitle={list.title}/>}
+                                    {!token?  <NonUserModal /> : <CommentModal movieTitle={list.title}/>}
                                 </ConetentActionThree>
                             </ConetentAction>
                         </HeaderBottomLeft>

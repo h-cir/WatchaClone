@@ -159,6 +159,7 @@ const CommentModal = (props) => {
               onClick={() => {
                 addComment();
                 setOpen(false)
+                window.location.reload();
               }}
             >
               저장

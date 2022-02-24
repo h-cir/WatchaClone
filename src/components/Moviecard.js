@@ -17,7 +17,7 @@ const MovieCard = (props) => {
               alt=""
             />
           </Poster>
-          <Rranking>{props.idx}</Rranking>
+          {/* <Rranking>{props.key}</Rranking> */}
         </PosterBox>
         <Info>
           <Title>{props.title}</Title>

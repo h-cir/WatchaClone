@@ -8,19 +8,19 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { emailCheck, nicknamecheck, pwdcheck } from "../shared/Common";
 
 const style = {
-    display: "inline-block",
-    position: 'absolute',
-    textAlign: "left",
-    verticalAlign: "middle",
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    background: "rgb(255, 255, 255)",
-    width: "375px",
-    overflow: "auto",
-    height: "auto",
-    minHeight: "540px",
-    borderRadius: "6px",
+  display: "inline-block",
+  position: "absolute",
+  textAlign: "left",
+  verticalAlign: "middle",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  background: "rgb(255, 255, 255)",
+  width: "375px",
+  overflow: "auto",
+  height: "auto",
+  minHeight: "540px",
+  borderRadius: "6px",
 };
 
 const Signupmodal = (props) => {
@@ -44,7 +44,7 @@ const Signupmodal = (props) => {
   };
 
   const signup = () => {
-    if (userId === "" || userName === "" || password=== "") {
+    if (userId === "" || userName === "" || password === "") {
       window.alert("이메일, 닉네임, 패스워드를 모두 입력해주세요");
       return;
     }
@@ -55,12 +55,14 @@ const Signupmodal = (props) => {
 
     dispatch(userActions.signUpDB(userId, password, userName));
   };
-  
+
   return (
     <div>
-      {props.signup === true ? 
-      <SignupButton onClick={handleOpen}>회원가입</SignupButton>:
-      <HeaderButton onClick={handleOpen}>회원가입</HeaderButton>}
+      {props.signup === true ? (
+        <SignupButton onClick={handleOpen}>회원가입</SignupButton>
+      ) : (
+        <HeaderButton onClick={handleOpen}>회원가입</HeaderButton>
+      )}
       <Modal
         open={open}
         onClose={handleClose}

@@ -12,11 +12,12 @@ const CommentMy = (props) => {
   const dispatch = useDispatch();
   const [edit, setEdit] = React.useState(true);
   const [title, setTitle] = React.useState();
-
+  const token = localStorage.getItem("is_login")
   React.useEffect(() => {
     dispatch(commentActions.getCommentDB(params.movieid));
     // dispatch(likeActions.loadUserDB());
   }, []);
+  const myComment = useSelector((state) => state.comment.mylist);
 
   const deleteComment = () => {
     dispatch(commentActions.deleteCommentDB(myComment.commentId));
@@ -40,9 +41,10 @@ const CommentMy = (props) => {
                 <MyCommentSection>
                   <MyCommentBlock>
                     <div>
-                      <Profile>
+                    <BottomContentBasicInfo>나의 코멘트</BottomContentBasicInfo>
+                      {/* <Profile>
                         <ProfilePhotoImage></ProfilePhotoImage>
-                      </Profile>
+                      </Profile> */}
                     </div>
                     <StylelessLocalLink>
                       <MyComment>
@@ -86,7 +88,11 @@ const CommentMy = (props) => {
       </React.Fragment>
     );
   }
-  return <></>;
+  
+    return (
+      <React.Fragment></React.Fragment>
+    )
+  
 };
 
 const SectionBlock = styled.div`
@@ -122,7 +128,18 @@ const MyCommentBlock = styled.div`
     align-items: center;
   }
 `;
-
+const BottomContentBasicInfo = styled.div`
+  color: rgb(0, 0, 0);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.7px;
+  line-height: 28px;
+  margin: 8px 0px;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+`;
 const Profile = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 50%;

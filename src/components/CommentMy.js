@@ -29,6 +29,7 @@ const CommentMy = (props) => {
   const exist = myComment ? true : false;
   const myId = localStorage.getItem("userId")
   const yesComment = myComment?.userId === myId ? true : false;
+  const meId = myId.split('@')[0]
 
   if (exist && yesComment) {
     return (
@@ -39,10 +40,8 @@ const CommentMy = (props) => {
               <Frame3>
                 <MyCommentSection>
                   <MyCommentBlock>
-                    <div>
-                      <Profile>
-                        <ProfilePhotoImage></ProfilePhotoImage>
-                      </Profile>
+                    <div style={{fontSize: "16px", fontWeight:"800" , color:"grey"}}>
+                    {meId} :
                     </div>
                     <StylelessLocalLink>
                       <MyComment>

@@ -66,14 +66,15 @@ const Main = (props) => {
   return (
     <React.Fragment>
       <Section>
+      <Frame>
         {category.map((e, idx) => {
           const cateName = ["인기 영화","높은 평점 영화","현재 상영 영화", "개봉 예정 영화"]
           return (
-            <RankingBox key={idx}>
+            <RankingBox key={idx} >
               <RankingTitle>
                 <p>{cateName[idx]}</p>
               </RankingTitle>
-              <Frame>
+           
                 <Frame2>
                   <Tran>
                     <ListFrame>
@@ -87,10 +88,11 @@ const Main = (props) => {
                     </ListFrame>
                   </Tran>
                 </Frame2>
-              </Frame>
+             
             </RankingBox>
           );
         })}
+         </Frame>
       </Section>
     </React.Fragment>
   );
@@ -122,7 +124,7 @@ const RankingBox = styled.div`
 `;
 
 const RankingTitle = styled.div`
-  /* @media screen and (min-width: 1440px) {
+  @media screen and (min-width: 1440px) {
     margin-right: auto;
     margin-left: auto;
   }
@@ -154,7 +156,7 @@ const RankingTitle = styled.div`
 
 const Frame = styled.div`
   max-width: 1320px;
-  margin: 0 3.5%;
+  margin: 0 auto;
 `;
 const Frame2 = styled.div`
   position: relative;

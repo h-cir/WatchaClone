@@ -26,7 +26,6 @@ const CommentMy = (props) => {
     dispatch(commentActions.updateCommentDB(myComment.commentId));
   };
   
-  const myComment = useSelector((state) => state.comment.mylist);
   const exist = myComment ? true : false;
   const myId = localStorage.getItem("userId")
   const yesComment = myComment?.userId === myId ? true : false;

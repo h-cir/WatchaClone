@@ -3,9 +3,14 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import NextArrow from "../arrow/NextArrow"
-import PrevArrow from "../arrow/PrevArrow"
+// import NextArrow from "../arrow/NextArrow"
+// import PrevArrow from "../arrow/PrevArrow"
+import '../arrow/NextArrow.scss';
+import '../arrow/PrevArrow.scss';
+import rightarrow from '../images/rightarrow.png'
+import leftarrow from '../images/leftarrow.png'
 const Sidebar = (props) => {
+    const sliderRef = React.useRef(null)
     const list = props
 
     const settings = {
@@ -14,9 +19,11 @@ const Sidebar = (props) => {
         speed: 500,
         slidesToShow: 2,
         slidesToScroll: 2,
-        nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />,
-       
+        // nextArrow: <NextArrow onClick={()=>{
+        //         //     sliderRef.current.slickNext()
+        // }}/>,
+        // prevArrow: <PrevArrow onClick={sliderRef.current.slickPrev()}/>,
+
     };
     return (
         <>
@@ -31,11 +38,26 @@ const Sidebar = (props) => {
                         <BottomVideo3>
                             <BottomVideo4>
                                 <BottomVideo5>
+                                    <div className='nextArrowBox' onClick={() => { sliderRef.current.slickNext() }}>
+                                        <img
+                                            src={rightarrow}
+                                            className='nextArrow'
+                                            alt='arrow next'
+                                        />
+                                    </div>
+                                    <div className='prevArrowBox' onClick={() => { sliderRef.current.slickPrev() }}>
+                                        <img
+                                            src={leftarrow}
+                                            className='prevArrow'
+                                            alt='arrow next'
+                                        />
+                                    </div>
                                     {/* 반복지점 */}
                                     <Container>
-                                        <StyledSlider {...settings} >
+                                        <Slider ref={sliderRef} {...settings} >
                                             {list.galleryUrls && list.galleryUrls.map((v, idx) => {
                                                 return (
+
                                                     <BottomVideo6 key={idx}>
                                                         <BottomVideo7>
                                                             <BottomGallery2 src={v} />
@@ -43,7 +65,7 @@ const Sidebar = (props) => {
                                                     </BottomVideo6>
                                                 )
                                             })}
-                                        </StyledSlider>
+                                        </Slider>
                                     </Container>
                                     {/* 반복지점 */}
                                 </BottomVideo5>
@@ -257,7 +279,7 @@ const StyledSlider = styled(Slider)`
     opacity: 1;
     color: gray;
   }
-
+ 
 `;
 const Container = styled.div`
   width: 100%;

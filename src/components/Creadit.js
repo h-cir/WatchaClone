@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import leftarrow from '../images/leftarrow.png'
 
 const Creadit = (props) => {
     const list = props
@@ -12,12 +13,13 @@ const Creadit = (props) => {
         return (
             <div
                 className={className}
-                style={{ ...style, display: "block" }}
+                style={{ ...style, display: "block"}}
                 onClick={onClick}
             />
         );
     };
     const PrevArrow = (props) => {
+        
         const { className, style, onClick } = props;
         return (
             <div
@@ -171,7 +173,7 @@ text-overflow: ellipsis;
 `
 
 const StyledSlider = styled(Slider)`
-.slick-arrow {
+  .slick-arrow {
     z-index: 50;
   }
   .slick-next {
@@ -190,9 +192,8 @@ const StyledSlider = styled(Slider)`
     font-size: 30px;
     opacity: 1;
     color: gray;
-    
   }
- 
+  
    
 }
 `;

@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { emailCheck, nicknamecheck, pwdcheck } from "../shared/Common";
 
 const style = {
     display: "inline-block",
@@ -43,8 +44,22 @@ const Signupmodal = (props) => {
   };
 
   const signup = () => {
+    if (userId === "" || userName === "" || password=== "") {
+      window.alert("이메일, 닉네임, 패스워드를 모두 입력해주세요");
+      return;
+    }
+    if (!emailCheck(userId)) {
+      window.alert("이메일 형식이 맞지 않습니다!");
+      return;
+    }
+
+    if (!nicknamecheck(userName)) {
+      window.alert("닉네임 형식이 일치하지 않습니다.");
+      return;
+    }
     dispatch(userActions.signUpDB(userId, password, userName));
   };
+  
   return (
     <div>
       {props.signup === true ? 

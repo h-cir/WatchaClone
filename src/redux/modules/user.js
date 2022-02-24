@@ -49,7 +49,8 @@ const signUpDB = (userId, password, userName) => {
       })
       .then((res) => {
         console.log(res)
-        // history.push("/");
+        window.alert("회원가입에 성공하였습니다! 로그인 해주세요")
+        window.location.reload()
       })
       .catch((error) => {
         console.log(error);

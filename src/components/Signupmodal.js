@@ -53,10 +53,6 @@ const Signupmodal = (props) => {
       return;
     }
 
-    if (!nicknamecheck(userName)) {
-      window.alert("닉네임 형식이 일치하지 않습니다.");
-      return;
-    }
     dispatch(userActions.signUpDB(userId, password, userName));
   };
   
@@ -154,7 +150,7 @@ const Signupmodal = (props) => {
             <Input
               value={password}
               onChange={changePwd}
-              type="text"
+              type="password"
               placeholder="비밀번호"
             ></Input>
           </div>

@@ -15,7 +15,7 @@ const CommentMy = (props) => {
 
   React.useEffect(() => {
     dispatch(commentActions.getCommentDB(params.movieid));
-    dispatch(likeActions.loadUserDB());
+    // dispatch(likeActions.loadUserDB());
   }, []);
 
   const deleteComment = () => {
@@ -26,11 +26,8 @@ const CommentMy = (props) => {
   };
 
   const myComment = useSelector((state) => state.comment.mylist);
-  console.log(myComment);
   const exist = myComment ? true : false;
-  console.log(exist);
   const myId = useSelector((state) => state.like.userlist?.userId);
-  console.log(myId);
   const yesComment = myComment?.userId === myId ? true : false;
 
   if (exist && yesComment) {

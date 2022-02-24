@@ -30,18 +30,14 @@ const style = {
 };
 
 const CommentModal = (props) => {
-  console.log(props)
   const params = useParams();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // console.log(params);
-  // console.log(props);
-  const title = props.movieTitle;
-  console.log(title);
-  // console.log(params.movieid);
 
+  const title = props.movieTitle;
+  
   const [comment, setComment] = React.useState("");
   const changeComment = (e) => {
     setComment(e.target.value);

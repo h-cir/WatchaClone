@@ -112,7 +112,7 @@ const BasicModal = (props) => {
             <Input value={userId} onChange={changeId} type="text" placeholder="이메일"></Input>
           </div>
           <div style={{padding:"8px 0px", overflow:"hidden"}}>
-            <Input value={password} onChange={changePwd} type="text" placeholder="비밀번호"></Input>
+            <Input value={password} onChange={changePwd}  type="password" placeholder="비밀번호"></Input>
           </div>
           <LoginButton onClick={login}>로그인</LoginButton>
           </section>

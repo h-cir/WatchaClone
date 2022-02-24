@@ -53,7 +53,7 @@ const StarBar = (props) => {
         )
     })
  
-    console.log(highData)
+
 
     return (
         <div style={{ padding: "8px 0px 0px" }}>

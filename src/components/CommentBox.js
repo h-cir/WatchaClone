@@ -16,11 +16,11 @@ const CommentBox = (props) => {
   const dispatch = useDispatch();
   const commentList = useSelector((state) => state.comment.list);
   // console.log(commentList);
-
-
+  console.log(commentList)
   React.useEffect(() => {
     dispatch(commentActions.getCommentListDB(movieId));
   }, []);
+  
   const LikeComment = () => {
     dispatch(likeActions.likeCommentDB(props.commentId));
   };
@@ -102,6 +102,7 @@ const CommentBox = (props) => {
             <Container>
               <StyledSlider {...settings}>
                 {commentList && commentList.map((e, i) => {
+                  console.log(e)
                   return (
                     <CommentCardFrame key={i}>
                       <UserFrame>

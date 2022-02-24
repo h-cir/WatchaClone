@@ -1,128 +1,120 @@
-import instance from "../../shared/Request";
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import instance from "../../shared/Request";
+import { actionCreators as commentActions } from "./comment";
+const SET_LIKE = "SET_LIKE";
+const ADD_LIKE = "ADD_LIKE";
+const CANCEL_LIKE = "CANCEL_LIKE";
 
-const token = localStorage.getItem("is_login");
-
-const LOAD_USER = "LOAD_USER";
-const LIKE_COMMENT = "LIKE_COMMENT";
-const LIKE_USERLIST = "LIKE_USERLIST";
-const UNLIKE_COMMENT = "UNLIKE_COMMENT";
-
-const loadUser = createAction(LOAD_USER,( users) => ({users}));
-const likeComment = createAction(LIKE_COMMENT, (commentId,likeUser) => (commentId,likeUser));
-const likeUserList = createAction(LIKE_USERLIST, (comments) => ({ comments }));
-const unlikeComment = createAction(UNLIKE_COMMENT, (commentId) => ({
+const setLike = createAction(SET_LIKE, (commentId, user_list) => ({
   commentId,
+  user_list,
+}));
+const addLike = createAction(ADD_LIKE, (commentId, userId) => ({
+  commentId,
+  userId,
 }));
 
-//initialState
+const cancelLike = createAction(CANCEL_LIKE, (commentId, userId) => ({
+  commentId,
+  userId,
+}));
+
 const initialState = {
-  list: [],
-  like: [],
+  list: {},
 };
 
-export const loadUserDB = (users) => {
-  return (dispatch, getState, { history }) => {
-    instance
-      .get("/api/users/auth/me")
-      .then((response) => {
-        // console.log(response, "로그인 정보 조회 성공");
-        dispatch(loadUser(response.data));
-      })
+const getLikeFB = (commentId) => {
+  return function (dispatch, getState, { history }) {
+    instance.get(`/api/comments/${commentId}/likes`,
+      {},
+    ).then((res) => {
+
+      const data = res.data.likeUsers
+      const user_list = []
+      data.forEach((doc) => {
+        user_list.push(doc);
+        console.log(user_list)
+      });
+
+      dispatch(setLike(commentId, user_list));
+    })
       .catch((error) => {
-        console.log(error, "로그인 정보 조회 오류");
+        console.log(error);
       });
   };
 };
 
-export const likeCommentDB = (commentId,likeUser) => {
-  return (dispatch, getState, { history }) => {
-    instance
-      .post(
-        `/api/comments/${commentId}/likes`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((response) => {
-        console.log(response, "코멘트 좋아요 성공");
-        // console.log(response.data.message);
-        dispatch(likeComment(commentId,likeUser));
-      })
+const addLikeFB = (commentId, userId) => {
+  return function (dispatch, getState, { history }) {
+    const commentList = getState().comment.list.find((l) => l.commentId === commentId);
+    console.log(commentList.countLikes)
+    const is_local = localStorage.getItem("is_login")
+
+    instance.post(`/api/comments/${commentId}/likes`,
+      {},
+      instance.defaults.headers.common["Authorization"] = `Bearer ${is_local}`
+    ).then((res) => {
+      console.log(res)
+      dispatch(addLike(commentId, userId))
+    })
       .catch((error) => {
-        console.log(error.response.data.message, "코멘트 좋아요 실패");
-        window.alert(error.response.data.message)
-      });
-  };
-};
-export const likeUserListDB = (commentId) => {
-  return (dispatch, getState, { history }) => {
-    instance
-      .get(`/api/comments/${commentId}/likes`)
-      .then((response) => {
-        // console.log(response, "답변 좋아요 리스트 가져오기");
-        dispatch(likeUserList(response.data));
-      })
-      .catch((error) => {
-        console.log(
-          error.response.data.errorMessage,
-          "답변 좋아요 리스트 가져오기 오류"
-        );
+        console.log(error);
       });
   };
 };
 
-export const unlikeCommentDB = (commentId) => {
-  return (dispatch, getState, { history }) => {
-    instance
-      .delete(`/api/comments/${commentId}/likes`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        console.log(response);
-        console.log(commentId);
-        window.alert(response.data.message);
-        dispatch(unlikeComment(commentId));
-      })
+const cancelLikeFB = (commentId, userId) => {
+  return function (dispatch, getState, { history }) {
+    // dispatch(cancelLike(post_id, user_nick))
+    // const post = getState().post.list.find((l) => l.post_id === post_id);
+    const is_local = localStorage.getItem("is_login")
+    instance.delete(`/api/comments/${commentId}/likes`,
+      {},
+      instance.defaults.headers.common["Authorization"] = `Bearer ${is_local}`
+    ).then((res) => {
+      console.log(res)
+      dispatch(cancelLike(commentId, userId))
+      // if (post) {
+      //     dispatch(
+      //       postActions.editPost(post_id, {
+      //         like_count: parseInt(post.like_count) - 1,
+      //       })
+      //     );
+      //   }
+    })
       .catch((error) => {
-        console.log(error.response.errorMessage, "좋아요 취소 실패");
+        console.log(error);
       });
   };
 };
 
-//reducer
 export default handleActions(
   {
-    [LOAD_USER]: (state, action) =>
-      produce(state,(draft) => {
-        return { ...state, userlist: action.payload.users};
-      }),
-    [LIKE_COMMENT]: (state, action) =>
+    [SET_LIKE]: (state, action) =>
       produce(state, (draft) => {
-        draft.like.push(action.payload.comments)
-        draft.likelist="1"
+        draft.list[action.payload.commentId] = action.payload.user_list;
       }),
-    [LIKE_USERLIST]: (state, action) =>
+    [ADD_LIKE]: (state, action) =>
       produce(state, (draft) => {
-        return { ...state, list: action.payload.comments.likeUsers };
+        draft.list[action.payload.commentId].push(action.payload.userId);
+        window.location.reload()
       }),
-    [UNLIKE_COMMENT]: (state, action) =>
+    [CANCEL_LIKE]: (state, action) =>
       produce(state, (draft) => {
-          draft.list = "";
+        draft.list[action.payload.commentId] = draft.list[
+          action.payload.commentId
+        ].filter((l) => l !== action.payload.userId);
+        window.location.reload()
       }),
   },
   initialState
 );
 
 const actionCreators = {
-  loadUser,
-  loadUserDB,
-  likeComment,
-  likeCommentDB,
-  likeUserList,
-  likeUserListDB,
-  unlikeComment,
-  unlikeCommentDB,
+  getLikeFB,
+  addLikeFB,
+  cancelLikeFB,
 };
 
 export { actionCreators };

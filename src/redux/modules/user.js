@@ -30,6 +30,7 @@ const loginDB = (userId, password) => {
       window.location.reload()
     //   localStorage.setItem("user_nick", res.data.user_nick);
       localStorage.setItem("is_login", res.data.token);
+      localStorage.setItem("userId", res.data.userId);
       dispatch(setUser());
       // history.push("/");
     });
@@ -70,7 +71,6 @@ const signUpDB = (userId, password, userName) => {
 //       });
 //   };
 // };
-
 const logoutDB = () => {
   return function (dispatch, getState, { history }) {
     dispatch(logOut());
@@ -99,7 +99,6 @@ export default handleActions(
 );
 
 // action creator export
-
 const actionCreators = {
   logOut,
 //   getUser,

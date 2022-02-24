@@ -2,6 +2,7 @@ import instance from "../../shared/Request";
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
+
 const token = localStorage.getItem("is_login");
 
 //action
@@ -35,8 +36,7 @@ export const addCommentDB = (movieId,comment) => {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
-        console.log(response, "코멘트 작성 성공");
-        console.log(response.data.message);
+  
         dispatch(addComment(comment));
       })
       .catch((error) => {
@@ -115,8 +115,7 @@ export default handleActions(
   {
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        const mylist = [];
-        draft.mylist.push(action.payload.comments);
+        window.location.reload()
       }),
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
@@ -129,7 +128,9 @@ export default handleActions(
       }),
     [UPDATE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
+ 
         draft.mylist.comment=action.payload.comment
+  
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {

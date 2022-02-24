@@ -15,7 +15,7 @@ const CommentMy = (props) => {
   const token = localStorage.getItem("is_login")
   React.useEffect(() => {
     dispatch(commentActions.getCommentDB(params.movieid));
-    // dispatch(likeActions.loadUserDB());
+
   }, []);
   const myComment = useSelector((state) => state.comment.mylist);
 
@@ -25,10 +25,10 @@ const CommentMy = (props) => {
   const updateComment = () => {
     dispatch(commentActions.updateCommentDB(myComment.commentId));
   };
-
+  
   const myComment = useSelector((state) => state.comment.mylist);
   const exist = myComment ? true : false;
-  const myId = useSelector((state) => state.like.userlist?.userId);
+  const myId = localStorage.getItem("userId")
   const yesComment = myComment?.userId === myId ? true : false;
 
   if (exist && yesComment) {

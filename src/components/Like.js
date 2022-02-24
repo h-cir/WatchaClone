@@ -1,25 +1,44 @@
 import React from "react";
 import styled from "styled-components";
-import { Grid, Text } from "../elementsJ";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { actionCreators as likeActions } from "../redux/modules/like";
 
 const Like = (props) => {
-    console.log(props)
-    const dispatch = useDispatch();
-    const likeList = useSelector((state) => state.like.list);
-    console.log(likeList)
-    React.useEffect(() => {
-        dispatch(likeActions.likeUserListDB(props.commentId));
-      }, []);
-      const likeComment = () => {
-        dispatch(likeActions.likeCommentDB(props.commentId,props.userId));
-      };
-      const unlikeComment = () => {
-        dispatch(likeActions.unlikeCommentDB(props.commentId,props.userId));
-      };
+  console.log(props.commentId);
+  const dispatch = useDispatch();
+  const commentList = useSelector((state) => state.comment.list);
+  console.log(commentList);
+  React.useEffect(() => {
+    dispatch(likeActions.loadUserDB());
+    dispatch(likeActions.likeUserListDB(props.commentId));
+  }, []);
+  const nowUser = useSelector((state) => state.like.userlist?.userId);
+  console.log(nowUser);
+  const likeComment = () => {
+    dispatch(likeActions.likeCommentDB(props.commentId, nowUser));
+  };
+  const unlikeComment = () => {
+    dispatch(likeActions.unlikeCommentDB(props.commentId));
+  };
+  const likeList = useSelector((state) => state.like.list);
+  // console.log(likeList);
+  const is_liked = likeList.includes(nowUser) ? true : false;
+
+  if (is_liked === true) {
+    return (
+      <LikeButtonFrame>
+        <UnlikeButton
+          onClick={() => {
+            unlikeComment();
+          }}
+        >
+          좋아요
+        </UnlikeButton>
+      </LikeButtonFrame>
+    );
+  }
 
   return (
     <LikeButtonFrame>
@@ -30,13 +49,6 @@ const Like = (props) => {
       >
         좋아요
       </LikeButton>
-      <UnlikeButton
-        onClick={() => {
-          unlikeComment();
-        }}
-      >
-        좋아요
-      </UnlikeButton>
     </LikeButtonFrame>
   );
 };
@@ -64,7 +76,6 @@ const LikeButton = styled.button`
   line-height: 22px;
   padding: 2px 8px;
 `;
-//이미 좋아요이면 이 버튼
 const UnlikeButton = styled.button`
   border: none;
   margin: 0px;

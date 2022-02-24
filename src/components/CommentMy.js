@@ -1,93 +1,95 @@
 import React from "react";
 import styled from "styled-components";
-import { Grid, Text } from "../elementsJ";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { actionCreators as commentActions } from "../redux/modules/comment";
+import { actionCreators as likeActions } from "../redux/modules/like";
+import CommentModal from "./CommentModal";
 
 const CommentMy = (props) => {
   const params = useParams();
   const dispatch = useDispatch();
+  const [edit, setEdit] = React.useState(true);
+  const [title, setTitle] = React.useState();
+
   React.useEffect(() => {
     dispatch(commentActions.getCommentDB(params.movieid));
+    dispatch(likeActions.loadUserDB());
   }, []);
-  const myCommentList = useSelector((state) => state.comment.mylist);
-  console.log(myCommentList)
 
-  // let Not_comment = myCommentList === {message: '댓글이 없습니다.'} ? true : false;
-  // console.log(Not_comment)
   const deleteComment = () => {
-    dispatch(commentActions.deleteCommentDB(myCommentList.commentId));
+    dispatch(commentActions.deleteCommentDB(myComment.commentId));
+  };
+  const updateComment = () => {
+    dispatch(commentActions.updateCommentDB(myComment.commentId));
   };
 
-  // return(
-  //   <></>
-  // )
-  // if(my_comment === true)
-  return (
-    <React.Fragment>
-      <SectionBlock>
-        <Frame2>
-          <div>
-            <Frame3>
-              <MyCommentSection>
-                <MyCommentBlock>
-                  <div>
-                    <Profile>
-                      <ProfilePhotoImage></ProfilePhotoImage>
-                    </Profile>
-                  </div>
-                  <StylelessLocalLink>
-                    <MyComment>
-                      <StyledSelf>
-                        <StyledText>{myCommentList && myCommentList.comment}</StyledText>
-                      </StyledSelf>
-                    </MyComment>
-                  </StylelessLocalLink>
-                  <CommentUpdateButtons>
-                    <CommentUpdateButtonListItem>
-                      <CommentUpdateButton
-                      onClick={() => {
-                        deleteComment();
-                      }}
-                      >
-                        <img
-                          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZmlsbD0iI0EwQTBBMCIgZD0iTTUuMjUgMTQuMjVoNy41di03LjVoMS41VjE1YS43NS43NSAwIDAgMS0uNzUuNzVoLTlhLjc1Ljc1IDAgMCAxLS43NS0uNzVWNi43NWgxLjV2Ny41ek0xMiA0LjVoMy43NVY2SDIuMjVWNC41SDZWM2EuNzUuNzUgMCAwIDEgLjc1LS43NWg0LjVBLjc1Ljc1IDAgMCAxIDEyIDN2MS41em0tMS41IDB2LS43NWgtM3YuNzVoM3pNNi43NSA2Ljc1aDEuNXY2Ljc1aC0xLjVWNi43NXptMyAwaDEuNXY2Ljc1aC0xLjVWNi43NXoiLz4KICAgIDwvZz4KPC9zdmc+Cg=="
-                          alt="delete comment"
-                          style={{
-                            verticalAlign: "top",
-                            margin: "0px 3px 0px 0px",
-                            borderStyle: "none",
+  const myComment = useSelector((state) => state.comment.mylist);
+  console.log(myComment);
+  const exist = myComment ? true : false;
+  console.log(exist);
+  const myId = useSelector((state) => state.like.userlist?.userId);
+  console.log(myId);
+  const yesComment = myComment?.userId === myId ? true : false;
+
+  if (exist && yesComment) {
+    return (
+      <React.Fragment>
+        <SectionBlock>
+          <Frame2>
+            <div>
+              <Frame3>
+                <MyCommentSection>
+                  <MyCommentBlock>
+                    <div>
+                      <Profile>
+                        <ProfilePhotoImage></ProfilePhotoImage>
+                      </Profile>
+                    </div>
+                    <StylelessLocalLink>
+                      <MyComment>
+                        <StyledSelf>
+                          <StyledText>
+                            {myComment && myComment.comment}
+                          </StyledText>
+                        </StyledSelf>
+                      </MyComment>
+                    </StylelessLocalLink>
+                    <CommentUpdateButtons>
+                      <CommentUpdateButtonListItem>
+                        <CommentUpdateButton
+                          onClick={() => {
+                            deleteComment();
                           }}
-                        />
-                        삭제
-                      </CommentUpdateButton >
-                    </CommentUpdateButtonListItem>
-                    <After></After>
-                    <CommentUpdateButtonListItem>
-                      <CommentUpdateButton>
-                        <img
-                          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZmlsbD0iI0EwQTBBMCIgZD0iTTIuMTggMTUuMzlsLjcwMy0zLjk4IDMuNzEzIDMuNzEyLTMuOTgxLjcwMmEuMzc0LjM3NCAwIDAgMS0uNDM0LS40MzR6bTEuNDk4LTQuNzc2bDYuMzY0LTYuMzY0IDMuNzEzIDMuNzEyLTYuMzY0IDYuMzY0LTMuNzEzLTMuNzEyek0xNS42MDcgNS4wNGEuNzUuNzUgMCAwIDEgMCAxLjA2bC0xLjA2IDEuMDYxLTMuNzEzLTMuNzEyIDEuMDYtMS4wNmEuNzUuNzUgMCAwIDEgMS4wNiAwbDIuNjUzIDIuNjUxeiIvPgogICAgPC9nPgo8L3N2Zz4K"
-                          alt="edit comment"
-                          style={{
-                            verticalAlign: "top",
-                            margin: "0px 3px 0px 0px",
-                            borderStyle: "none",
-                          }}
-                        />
-                        수정
-                      </CommentUpdateButton>
-                    </CommentUpdateButtonListItem>
-                  </CommentUpdateButtons>
-                </MyCommentBlock>
-              </MyCommentSection>
-            </Frame3>
-          </div>
-        </Frame2>
-      </SectionBlock>
-    </React.Fragment>
-  );
+                        >
+                          <img
+                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZmlsbD0iI0EwQTBBMCIgZD0iTTUuMjUgMTQuMjVoNy41di03LjVoMS41VjE1YS43NS43NSAwIDAgMS0uNzUuNzVoLTlhLjc1Ljc1IDAgMCAxLS43NS0uNzVWNi43NWgxLjV2Ny41ek0xMiA0LjVoMy43NVY2SDIuMjVWNC41SDZWM2EuNzUuNzUgMCAwIDEgLjc1LS43NWg0LjVBLjc1Ljc1IDAgMCAxIDEyIDN2MS41em0tMS41IDB2LS43NWgtM3YuNzVoM3pNNi43NSA2Ljc1aDEuNXY2Ljc1aC0xLjVWNi43NXptMyAwaDEuNXY2Ljc1aC0xLjVWNi43NXoiLz4KICAgIDwvZz4KPC9zdmc+Cg=="
+                            alt="delete comment"
+                            style={{
+                              verticalAlign: "top",
+                              margin: "0px 3px 0px 0px",
+                              borderStyle: "none",
+                            }}
+                          />
+                          삭제
+                        </CommentUpdateButton>
+                      </CommentUpdateButtonListItem>
+                      <After></After>
+                      <CommentUpdateButtonListItem>
+                        <CommentModal edit={edit}/>
+                      </CommentUpdateButtonListItem>
+                    </CommentUpdateButtons>
+                  </MyCommentBlock>
+                </MyCommentSection>
+              </Frame3>
+            </div>
+          </Frame2>
+        </SectionBlock>
+      </React.Fragment>
+    );
+  }
+  return <></>;
 };
 
 const SectionBlock = styled.div`
@@ -217,6 +219,5 @@ const After = styled.div`
   height: 8px;
   margin: 0px 17px;
 `;
-// const Frame1 = styled.div``;
 
 export default CommentMy;

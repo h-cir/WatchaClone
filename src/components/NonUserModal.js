@@ -5,7 +5,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useDispatch } from "react-redux";
-import { Grid, Text } from "../elementsJ";
 import Loginmodal from "./Loginmodal";
 import Signupmodal from "./Signupmodal";
 
@@ -32,11 +31,43 @@ const NouUserModal = () => {
   const handleClose = () => setOpen(false);
   const [login, setLogin] = React.useState(true);
   const [signup, setSignup] = React.useState(true);
-  
+  const token = localStorage.getItem("is_login")
 
   return (
     <div>
-      <Button onClick={handleOpen}>nonuser</Button>
+      
+      {/* <Button onClick={handleOpen}>nonuser</Button> */}
+      <ConetentActionComment onClick={handleOpen}>
+          <div style={{ margin: "0px 3px 0px 0px" }}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="injected-svg"
+              data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9I
+                                        jAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3
+                                        JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMgMTcuMjUyNVYyMS4wMDI1SDYu
+                                        NzVMMTcuODEgOS45NDI1TDE0LjA2IDYuMTkyNUwzIDE3LjI1MjVaTTIwLjcxIDcuMD
+                                        QyNUMyMS4xIDYuNjUyNSAyMS4xIDYuMDIyNSAyMC43MSA1LjYzMjVMMTguMzcgMy4yO
+                                        TI1QzE3Ljk4IDIuOTAyNSAxNy4zNSAyLjkwMjUgMTYuOTYgMy4yOTI1TDE1LjEzIDU
+                                        MTIyNUwxOC44OCA4Ljg3MjVMMjAuNzEgNy4wNDI1WiIgZmlsbD0iY3VycmVudENvbG
+                                        9yIi8+Cjwvc3ZnPgo="
+              xmlns="http://www.w3.org/1999/xlink"
+            >
+              <path
+                d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 
+                                            17.2525ZM20.71 7.0425C21.1 6.6525 21.1 6.0225 20.71 5.6325L18.37 
+                                            3.2925C17.98 2.9025 17.35 2.9025 16.96 3.2925L15.13 5.1225L18.88
+                                             8.8725L20.71 7.0425Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+          코멘트
+        </ConetentActionComment>
+      {/* )} */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -88,5 +119,26 @@ const NouUserModal = () => {
     </div>
   );
 };
+const ConetentActionComment = styled.button`
+  @media only screen and (min-width: 1023px) {
+    flex-direction: row;
+    font-size: 14px;
+    line-height: 14px;
+    width: auto;
+    height: unset;
+  }
+  @media only screen and (min-width: 719px) {
+    min-width: 55px;
+  }
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  -webkit-box-align: center;
+  align-items: center;
+  text-align: center;
+  color: #292a32;
+  display: flex;
+`;
 
 export default NouUserModal;

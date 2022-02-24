@@ -4,10 +4,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 import { history } from "../redux/configureStore";
+import { actionCreators as detailActions } from "../redux/modules/detail";
 
 const style = {
   width: "420px",
@@ -29,6 +30,7 @@ const style = {
 };
 
 const CommentModal = (props) => {
+  console.log(props)
   const params = useParams();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
@@ -37,7 +39,7 @@ const CommentModal = (props) => {
   // console.log(params);
   // console.log(props);
   const title = props.movieTitle;
-  // console.log(title);
+  console.log(title);
   // console.log(params.movieid);
 
   const [comment, setComment] = React.useState("");
@@ -47,22 +49,48 @@ const CommentModal = (props) => {
   const addComment = () => {
     dispatch(commentActions.addCommentDB(params.movieid, comment));
   };
+  const editComment = () => {
+    dispatch(commentActions.updateCommentDB(myComment.commentId, comment));
+  };
+
+  const movieOne = useSelector((state) => state.detail.list);
+
   React.useEffect(() => {
+    dispatch(detailActions.getDetailMovieListDB(params.movieid));
     dispatch(commentActions.getCommentDB(params.movieid));
+    if (props.edit === true){
+     (setComment(myComment.comment));
+    }
   }, []);
+
+  const myComment = useSelector((state) => state.comment.mylist);
 
   return (
     <div>
-      <ConetentActionComment onClick={handleOpen}>
-        <div style={{ margin: "0px 3px 0px 0px" }}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="injected-svg"
-            data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9I
+      {props.edit === true ? (
+        <CommentUpdateButton onClick={handleOpen}>
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZmlsbD0iI0EwQTBBMCIgZD0iTTIuMTggMTUuMzlsLjcwMy0zLjk4IDMuNzEzIDMuNzEyLTMuOTgxLjcwMmEuMzc0LjM3NCAwIDAgMS0uNDM0LS40MzR6bTEuNDk4LTQuNzc2bDYuMzY0LTYuMzY0IDMuNzEzIDMuNzEyLTYuMzY0IDYuMzY0LTMuNzEzLTMuNzEyek0xNS42MDcgNS4wNGEuNzUuNzUgMCAwIDEgMCAxLjA2bC0xLjA2IDEuMDYxLTMuNzEzLTMuNzEyIDEuMDYtMS4wNmEuNzUuNzUgMCAwIDEgMS4wNiAwbDIuNjUzIDIuNjUxeiIvPgogICAgPC9nPgo8L3N2Zz4K"
+            alt="edit comment"
+            style={{
+              verticalAlign: "top",
+              margin: "0px 3px 0px 0px",
+              borderStyle: "none",
+            }}
+          />
+          수정
+        </CommentUpdateButton>
+      ) : (
+        <ConetentActionComment onClick={handleOpen}>
+          <div style={{ margin: "0px 3px 0px 0px" }}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="injected-svg"
+              data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9I
                                         jAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3
                                         JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMgMTcuMjUyNVYyMS4wMDI1SDYu
                                         NzVMMTcuODEgOS45NDI1TDE0LjA2IDYuMTkyNUwzIDE3LjI1MjVaTTIwLjcxIDcuMD
@@ -70,19 +98,21 @@ const CommentModal = (props) => {
                                         TI1QzE3Ljk4IDIuOTAyNSAxNy4zNSAyLjkwMjUgMTYuOTYgMy4yOTI1TDE1LjEzIDU
                                         MTIyNUwxOC44OCA4Ljg3MjVMMjAuNzEgNy4wNDI1WiIgZmlsbD0iY3VycmVudENvbG
                                         9yIi8+Cjwvc3ZnPgo="
-            xmlns="http://www.w3.org/1999/xlink"
-          >
-            <path
-              d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 
+              xmlns="http://www.w3.org/1999/xlink"
+            >
+              <path
+                d="M3 17.2525V21.0025H6.75L17.81 9.9425L14.06 6.1925L3 
                                             17.2525ZM20.71 7.0425C21.1 6.6525 21.1 6.0225 20.71 5.6325L18.37 
                                             3.2925C17.98 2.9025 17.35 2.9025 16.96 3.2925L15.13 5.1225L18.88
                                              8.8725L20.71 7.0425Z"
-              fill="currentColor"
-            ></path>
-          </svg>
-        </div>
-        코멘트
-      </ConetentActionComment>
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+          코멘트
+        </ConetentActionComment>
+      )}
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -91,19 +121,26 @@ const CommentModal = (props) => {
       >
         <Box sx={style}>
           <Header>
+          {props.edit === true ? (
+            <Title>{movieOne.title}</Title>
+          ):(
             <Title>{title}</Title>
+          )}
             <HeaderButton
               onClick={handleClose}
               src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMC43MDY5NTYgMTMuNDM1QzEuMDk3NDggMTMuODI1NSAxLjczMDY1IDEzLjgyNTUgMi4xMjExNyAxMy40MzVMNy4wNzA5OCA4LjQ4NTE4TDEyLjAyMDggMTMuNDM1QzEyLjQxMTMgMTMuODI1NSAxMy4wNDQ1IDEzLjgyNTUgMTMuNDM1IDEzLjQzNUMxMy44MjU2IDEzLjA0NDUgMTMuODI1NiAxMi40MTEzIDEzLjQzNSAxMi4wMjA4TDguNDg1MiA3LjA3MDk3TDEzLjQzNDkgMi4xMjEyOUMxMy44MjU0IDEuNzMwNzcgMTMuODI1NCAxLjA5NzYgMTMuNDM0OSAwLjcwNzA3OEMxMy4wNDQ0IDAuMzE2NTUzIDEyLjQxMTIgMC4zMTY1NTQgMTIuMDIwNyAwLjcwNzA3OEw3LjA3MDk4IDUuNjU2NzZMMi4xMjEzMiAwLjcwNzA5NEMxLjczMDggMC4zMTY1NyAxLjA5NzYzIDAuMzE2NTcgMC43MDcxMDcgMC43MDcwOTRDMC4zMTY1ODIgMS4wOTc2MiAwLjMxNjU4MyAxLjczMDc4IDAuNzA3MTA3IDIuMTIxMzFMNS42NTY3NyA3LjA3MDk3TDAuNzA2OTU2IDEyLjAyMDhDMC4zMTY0MzEgMTIuNDExMyAwLjMxNjQzMSAxMy4wNDQ1IDAuNzA2OTU2IDEzLjQzNVoiIGZpbGw9IiMyOTJBMzIiLz4KPC9zdmc+Cg=="
             />
           </Header>
           <Comment>
+            
             <Textarea
+              value={comment}
               onChange={changeComment}
               maxlength="10000"
               placeholder="이 작품에 대한 생각을 자유롭게 표현해주세요."
             ></Textarea>
-            <Comment2></Comment2>
+            {/* <Comment2>              
+            </Comment2> */}
           </Comment>
           <div
             style={{
@@ -112,14 +149,25 @@ const CommentModal = (props) => {
               justifyContent: "flex-end",
             }}
           >
+            {props.edit === true ? (
+            <SaveButton
+            onClick={() => {
+              editComment();
+              setOpen(false)
+            }}
+          >
+            수정
+          </SaveButton>
+          ):(
             <SaveButton
               onClick={() => {
                 addComment();
-                history.go(0);
+                setOpen(false)
               }}
             >
               저장
             </SaveButton>
+          )}
           </div>
         </Box>
       </Modal>
@@ -234,5 +282,17 @@ const SaveButton = styled.button`
   // opacity: 0.5;
   // cursor: not-allowed;
   cursor: pointer;
+`;
+
+const CommentUpdateButton = styled.button`
+  background: none;
+  padding: 0px;
+  border: none;
+  margin: 0px;
+  cursor: pointer;
+  color: rgb(140, 140, 140);
+  vertical-align: top;
+  font-size: 100%;
+  line-height: normal;
 `;
 export default CommentModal;

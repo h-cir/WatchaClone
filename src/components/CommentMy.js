@@ -41,9 +41,6 @@ const CommentMy = (props) => {
                   <MyCommentBlock>
                     <div>
                     <BottomContentBasicInfo>나의 코멘트</BottomContentBasicInfo>
-                      {/* <Profile>
-                        <ProfilePhotoImage></ProfilePhotoImage>
-                      </Profile> */}
                     </div>
                     <StylelessLocalLink>
                       <MyComment>
